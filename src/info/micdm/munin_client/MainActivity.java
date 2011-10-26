@@ -1,9 +1,9 @@
 package info.micdm.munin_client;
 
-import android.app.Activity;
+import info.micdm.munin_client.custom.CustomActivity;
 import android.os.Bundle;
 
-public class MainActivity extends Activity {
+public class MainActivity extends CustomActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

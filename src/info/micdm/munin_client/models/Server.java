@@ -23,4 +23,20 @@ public class Server {
      * Список ведомых серверов.
      */
     protected ArrayList<Node> _nodes;
+    
+    public Server(String host, Integer port) {
+        _host = host;
+        _port = port;
+    }
+    
+    public Server(String host) {
+        this(host, 80);
+    }
+    
+    /**
+     * Возвращает ноду.
+     */
+    public Node getNode() {
+        return new Node("localhost.localdomain");
+    }
 }

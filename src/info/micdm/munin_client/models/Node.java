@@ -11,4 +11,8 @@ public class Node {
      * Название ноды.
      */
     protected String _name;
+    
+    public Node(String name) {
+        _name = name;
+    }
 }
