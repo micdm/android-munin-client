@@ -34,6 +34,20 @@ public class Server {
     }
     
     /**
+     * Возвращает хост.
+     */
+    public String getHost() {
+        return _host;
+    }
+    
+    /**
+     * Возвращает порт.
+     */
+    public Integer getPort() {
+        return _port;
+    }
+    
+    /**
      * Возвращает ноду.
      */
     public Node getNode() {

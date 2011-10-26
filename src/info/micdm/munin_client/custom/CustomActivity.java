@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 /**
  * Базовый экран. Умеет получать события от потоков.
@@ -78,6 +79,6 @@ public abstract class CustomActivity extends Activity {
      * Вызывается при поступлении события.
      */
     protected void _onEvent(Event event) {
-        
+        Log.d(toString(), "got event " + event);
     }
 }
