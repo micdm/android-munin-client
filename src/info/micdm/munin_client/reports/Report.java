@@ -2,9 +2,40 @@ package info.micdm.munin_client.reports;
 
 import java.util.ArrayList;
 
-public class Report {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    protected ArrayList<Point> _points;
+/**
+ * Набор данных для визуализации.
+ * @author Mic, 2011
+ *
+ */
+public class Report implements Parcelable {
+
+    public static final Creator<Report> CREATOR = new Creator<Report>() {
+        @Override
+        public Report createFromParcel(Parcel source) {
+            return new Report(source);
+        }
+
+        @Override
+        public Report[] newArray(int size) {
+            return new Report[size];
+        }
+    };
+    
+    /**
+     * Набор точек.
+     */
+    protected ArrayList<Point> _points = new ArrayList<Point>();
+    
+    public Report() {
+        
+    }
+    
+    public Report(Parcel source) {
+        _readFromParcel(source);
+    }
     
     public String toString() {
         if (_points == null) {
@@ -13,14 +44,25 @@ public class Report {
         return "report with " + _points.size() + " points";
     }
     
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(_points);
+    }
+    
+    protected void _readFromParcel(Parcel source) {
+        source.readTypedList(_points, Point.CREATOR);
+    }
+    
     public ArrayList<Point> getPoints() {
         return _points;
     }
     
     public void addPoint(Point point) {
-        if (_points == null) {
-            _points = new ArrayList<Point>();
-        }
         _points.add(point);
     }
 }

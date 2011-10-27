@@ -80,6 +80,7 @@ class DataParser {
             @Override
             public void end() {
                 _report.addPoint(_point);
+                _point = null;
             }
         });
         _setupPointTime(row);
@@ -138,7 +139,7 @@ public class DownloadDataTask {
      */
     protected String _getUri() {
         String url = "http://" + _server.getHost() + ":" + _server.getPort();
-        String urn = "/munin-export/export.py?type=users&period=hour";
+        String urn = "/munin-export/export.py?type=load&period=hour";
         return url + urn;
     }
     
@@ -172,7 +173,7 @@ public class DownloadDataTask {
             Report report = parser.parse(data);
             Log.d(toString(), "parsed: " + report);
             Log.d(toString(), report.getPoints().toString());
-            CustomApplication.sendEvent(Event.DATA_LOADED);
+            CustomApplication.sendEvent(Event.REPORT_LOADED, report);
         }
     }
     

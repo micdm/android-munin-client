@@ -10,8 +10,8 @@ public enum Event {
     /**
      * Данные загружены.
      */
-    DATA_LOADED;
-    
+    REPORT_LOADED;
+
     public String toString() {
         return "info.micdm.munin_client." + name().toLowerCase();
     }

@@ -29,8 +29,10 @@ public abstract class CustomActivity extends Activity {
         protected Handler _handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                String eventString = msg.getData().getString("event");
-                _onEvent(Event.get(eventString));
+                Bundle data = msg.getData();
+                String event = data.getString("event");
+                Object extra = data.getParcelable("extra");
+                _onEvent(Event.get(event), extra);
                 super.handleMessage(msg);
             }
         };
@@ -39,6 +41,7 @@ public abstract class CustomActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             Bundle data = new Bundle();
             data.putString("event", intent.getAction());
+            data.putParcelable("extra", intent.getParcelableExtra("extra"));
             Message msg = new Message();
             msg.setData(data);
             _handler.sendMessage(msg);
@@ -78,7 +81,10 @@ public abstract class CustomActivity extends Activity {
     /**
      * Вызывается при поступлении события.
      */
-    protected void _onEvent(Event event) {
+    protected void _onEvent(Event event, Object extra) {
         Log.d(toString(), "got event " + event);
+        if (extra != null) {
+            Log.d(toString(), "extra data is " + extra);
+        }
     }
 }
