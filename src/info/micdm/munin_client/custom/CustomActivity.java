@@ -1,6 +1,7 @@
 package info.micdm.munin_client.custom;
 
-import info.micdm.munin_client.Event;
+import info.micdm.munin_client.events.Event;
+import info.micdm.munin_client.events.EventExtra;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,7 +32,7 @@ public abstract class CustomActivity extends Activity {
             public void handleMessage(Message msg) {
                 Bundle data = msg.getData();
                 String event = data.getString("event");
-                Object extra = data.getParcelable("extra");
+                EventExtra extra = data.getParcelable("extra");
                 _onEvent(Event.get(event), extra);
                 super.handleMessage(msg);
             }
@@ -81,7 +82,7 @@ public abstract class CustomActivity extends Activity {
     /**
      * Вызывается при поступлении события.
      */
-    protected void _onEvent(Event event, Object extra) {
+    protected void _onEvent(Event event, EventExtra extra) {
         Log.d(toString(), "got event " + event);
         if (extra != null) {
             Log.d(toString(), "extra data is " + extra);

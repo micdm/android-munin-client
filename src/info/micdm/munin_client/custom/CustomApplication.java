@@ -1,9 +1,9 @@
 package info.micdm.munin_client.custom;
 
-import info.micdm.munin_client.Event;
+import info.micdm.munin_client.events.Event;
+import info.micdm.munin_client.events.EventExtra;
 import android.app.Application;
 import android.content.Intent;
-import android.os.Parcelable;
 
 /**
  * Базовый класс для приложения.
@@ -24,12 +24,12 @@ public class CustomApplication extends Application {
     /**
      * Рассылает интент.
      */
-    public static void sendEvent(Event event, Parcelable extra) {
+    public static void sendEvent(Event event, EventExtra extra) {
         Intent intent = new Intent(event.toString());
         intent.putExtra("extra", extra);
         _instance.sendBroadcast(intent);
     }
-    
+
     /**
      * Рассылает интент.
      */

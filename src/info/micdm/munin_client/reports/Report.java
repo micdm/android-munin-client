@@ -1,16 +1,17 @@
 package info.micdm.munin_client.reports;
 
+import info.micdm.munin_client.events.EventExtra;
+
 import java.util.ArrayList;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
  * Набор данных для визуализации.
  * @author Mic, 2011
  *
  */
-public class Report implements Parcelable {
+public class Report implements EventExtra {
 
     public static final Creator<Report> CREATOR = new Creator<Report>() {
         @Override

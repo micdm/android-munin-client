@@ -1,7 +1,7 @@
 package info.micdm.munin_client.tasks;
 
-import info.micdm.munin_client.Event;
 import info.micdm.munin_client.custom.CustomApplication;
+import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Point;
 import info.micdm.munin_client.reports.Report;

@@ -1,4 +1,4 @@
-package info.micdm.munin_client;
+package info.micdm.munin_client.events;
 
 /**
  * События для приложения.
