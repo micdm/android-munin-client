@@ -68,9 +68,23 @@ public class Point implements Parcelable {
     }
     
     /**
+     * Возвращает время в точке.
+     */
+    public Integer getTime() {
+        return _time;
+    }
+    
+    /**
      * Устанавливает значение в точке.
      */
     public void setValue(Float value) {
         _value = value;
+    }
+    
+    /**
+     * Возвращает значение в точке.
+     */
+    public Float getValue() {
+        return _value;
     }
 }

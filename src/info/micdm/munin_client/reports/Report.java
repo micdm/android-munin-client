@@ -59,11 +59,44 @@ public class Report implements EventExtra {
         source.readTypedList(_points, Point.CREATOR);
     }
     
+    /**
+     * Возвращает список точек.
+     */
     public ArrayList<Point> getPoints() {
         return _points;
     }
     
+    /**
+     * Добавляет точку.
+     */
     public void addPoint(Point point) {
-        _points.add(point);
+        if (!point.getValue().equals(Float.NaN)) {
+            _points.add(point);
+        }
+    }
+    
+    /**
+     * Возвращает время начала отчета.
+     */
+    public Integer getStartTime() {
+        return _points.get(0).getTime();
+    }
+    
+    /**
+     * Возвращает время окончания отчета.
+     */
+    public Integer getEndTime() {
+        return _points.get(_points.size() - 1).getTime();
+    }
+    
+    /**
+     * Находит максимальное значение среди точек.
+     */
+    public Float getMaxValue() {
+        Float result = Float.NEGATIVE_INFINITY;
+        for (Point point: _points) {
+            result = result > point.getValue() ? result : point.getValue();
+        }
+        return result;
     }
 }
