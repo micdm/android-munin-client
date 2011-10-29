@@ -180,13 +180,14 @@ public class DownloadDataTask {
      */
     protected void _runOnThread() {
         String data = _downloadData();
-        if (data != null) {
-            DataParser parser = new DataParser();
-            Report report = parser.parse(data);
-            Log.d(toString(), "parsed: " + report);
-            Log.d(toString(), report.getPoints().toString());
-            CustomApplication.sendEvent(Event.REPORT_LOADED, report);
+        if (data == null) {
+            CustomApplication.sendEvent(Event.REPORT_LOADED);
+            return;
         }
+        DataParser parser = new DataParser();
+        Report report = parser.parse(data);
+        Log.d(toString(), "parsed: " + report);
+        CustomApplication.sendEvent(Event.REPORT_LOADED, report);
     }
     
     /**
