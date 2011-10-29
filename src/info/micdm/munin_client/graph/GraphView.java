@@ -29,9 +29,10 @@ public class GraphView extends View {
      */
     protected ShapeDrawable _setupDrawable(GraphShape shape) {
         ShapeDrawable drawable = new ShapeDrawable(shape);
+        shape.resize(getWidth(), getHeight());
         Paint paint = drawable.getPaint();
-        paint.setColor(0xFFFF1111);
-        paint.setStrokeWidth(2);
+        paint.setColor(0xFFFFFFFF);
+        paint.setStrokeWidth(1);
         return drawable;
     }
     

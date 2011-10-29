@@ -45,6 +45,8 @@ public class MainActivity extends CustomActivity {
                 _loadByDay();
             }
         });
+        
+        _loadByHour();
     }
     
     @Override
