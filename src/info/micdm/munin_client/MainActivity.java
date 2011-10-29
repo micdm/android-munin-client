@@ -17,13 +17,13 @@ public class MainActivity extends CustomActivity {
     protected void _loadByHour() {
         Server server = new Server("192.168.1.3", 82);
         Node node = new Node("localhost.localdomain");
-        ReportLoader.load(server, node, ReportLoader.Type.LOAD, ReportLoader.Period.HOUR);
+        ReportLoader.load(server, node, Report.Type.LOAD, Report.Period.HOUR);
     }
     
     protected void _loadByDay() {
         Server server = new Server("192.168.1.3", 82);
         Node node = new Node("localhost.localdomain");
-        ReportLoader.load(server, node, ReportLoader.Type.LOAD, ReportLoader.Period.DAY);
+        ReportLoader.load(server, node, Report.Type.LOAD, Report.Period.DAY);
     }
     
     @Override

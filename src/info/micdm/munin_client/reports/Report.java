@@ -10,15 +10,74 @@ import java.util.ArrayList;
 public class Report {
 
     /**
+     * Типы отчетов.
+     * @author Mic, 2011
+     *
+     */
+    public enum Type {
+        LOAD,
+        USERS;
+        
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
+    
+    /**
+     * Периоды отчетов.
+     * @author Mic, 2011
+     *
+     */
+    public enum Period {
+        HOUR,
+        DAY;
+        
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
+    
+    /**
+     * Тип отчета.
+     */
+    protected Type _type;
+    
+    /**
+     * Период отчета.
+     */
+    protected Period _period;
+    
+    /**
      * Набор точек.
      */
     protected ArrayList<Point> _points = new ArrayList<Point>();
+    
+    public Report(Type type, Period period) {
+        _type = type;
+        _period = period;
+    }
     
     public String toString() {
         if (_points == null) {
             return "report with no points";
         }
         return "report with " + _points.size() + " points";
+    }
+    
+    /**
+     * Возвращает тип отчета.
+     */
+    public Type getType() {
+        return _type;
+    }
+    
+    /**
+     * Возвращает период отчета.
+     */
+    public Period getPeriod() {
+        return _period;
     }
     
     /**

@@ -21,7 +21,6 @@ import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.RootElement;
-import android.sax.StartElementListener;
 import android.util.Log;
 import android.util.Xml;
 
@@ -94,27 +93,20 @@ class ReportParser {
      */
     protected RootElement _setupRootElement() {
         RootElement root = new RootElement("xport");
-        root.setStartElementListener(new StartElementListener() {
-            @Override
-            public void start(Attributes attributes) {
-                _report = new Report();
-            }
-        });
         _setupRow(root.getChild("data"));
         return root;
     }
     
     /**
-     * Парсит данные.
+     * Парсит данные, заполняет отчет.
      */
-    public Report parse(String data) {
+    public void parse(Report report, String data) {
         try {
+            _report = report;
             RootElement root = _setupRootElement();
             Xml.parse(data, root.getContentHandler());
-            return _report;
         } catch (SAXException e) {
             Log.e(toString(), "can not parse data: " + e.toString());
-            return null;
         }
     }
 }
@@ -140,14 +132,14 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
     /**
      * Тип отчета.
      */
-    protected String _type;
+    protected Report.Type _type;
     
     /**
      * Период отчета.
      */
-    protected String _period;
+    protected Report.Period _period;
     
-    public DownloadReportTask(Server server, Node node, String type, String period) {
+    public DownloadReportTask(Server server, Node node, Report.Type type, Report.Period period) {
         _server = server;
         _node = node;
         _type = type;
@@ -190,7 +182,8 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
             return null;
         }
         ReportParser parser = new ReportParser();
-        Report report = parser.parse(data);
+        Report report = new Report(_type, _period);
+        parser.parse(report, data);
         Log.d(toString(), "parsed: " + report);
         return report;
     }
