@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <info.micdm.munin_client.views.GraphView
+    <info.micdm.munin_client.graph.GraphView
         android:id="@+id/graph"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

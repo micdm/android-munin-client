@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar"
         android:name=".custom.CustomApplication" >
-        <activity android:name="MainActivity" android:screenOrientation="landscape">
+        <activity android:name=".MainActivity" android:screenOrientation="landscape">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 

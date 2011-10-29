@@ -3,10 +3,10 @@ package info.micdm.munin_client;
 import info.micdm.munin_client.custom.CustomActivity;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventExtra;
+import info.micdm.munin_client.graph.GraphView;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Report;
 import info.micdm.munin_client.tasks.DownloadDataTask;
-import info.micdm.munin_client.views.GraphView;
 import android.os.Bundle;
 import android.util.Log;
 
