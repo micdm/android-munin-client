@@ -1,6 +1,6 @@
 package info.micdm.munin_client.models;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Список серверов.
@@ -10,14 +10,31 @@ import java.util.ArrayList;
 public class ServerList {
 
     /**
+     * Синглтон.
+     */
+    protected final static ServerList _instance = new ServerList();
+    
+    /**
+     * Синглтон.
+     */
+    public static ServerList getInstance() {
+        return _instance;
+    }
+    
+    /**
      * Список серверов.
      */
-    protected ArrayList<Server> _servers;
+    protected HashMap<String, Server> _servers = new HashMap<String, Server>();
     
     /**
      * Возвращает сервер.
      */
-    public Server getServer() {
-        return new Server("192.168.1.3");
+    public Server getServer(String name) {
+        if (!_servers.containsKey(name)) {
+            if (name.equals("main")) {
+                _servers.put(name, new Server("192.168.1.3", 82));
+            }
+        }
+        return _servers.get(name);
     }
 }

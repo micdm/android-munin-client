@@ -1,6 +1,6 @@
 package info.micdm.munin_client.models;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Сервер с мониторингом.
@@ -22,7 +22,7 @@ public class Server {
     /**
      * Список ведомых серверов.
      */
-    protected ArrayList<Node> _nodes;
+    protected HashMap<String, Node> _nodes = new HashMap<String, Node>();
     
     public Server(String host, Integer port) {
         _host = host;
@@ -50,7 +50,10 @@ public class Server {
     /**
      * Возвращает ноду.
      */
-    public Node getNode() {
-        return new Node("localhost.localdomain");
+    public Node getNode(String name) {
+        if (!_nodes.containsKey(name)) {
+            _nodes.put(name, new Node(name));
+        }
+        return _nodes.get(name);
     }
 }

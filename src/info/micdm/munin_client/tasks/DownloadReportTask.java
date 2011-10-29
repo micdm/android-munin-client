@@ -190,7 +190,7 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
     
     @Override
     protected void onPostExecute(Report report) {
-        Event event = new Event(Event.Type.REPORT_AVAILABLE, report);
+        Event event = new Event(Event.Type.REPORT_LOADED, _server, _node, report);
         EventDispatcher.dispatch(event);
     }
 }

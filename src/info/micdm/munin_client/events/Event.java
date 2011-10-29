@@ -25,9 +25,9 @@ public class Event {
     /**
      * Дополнительные данные события.
      */
-    protected Object _extra;
+    protected Object[] _extra;
     
-    public Event(Type type, Object extra) {
+    public Event(Type type, Object... extra) {
         _type = type;
         _extra = extra;
     }
@@ -42,7 +42,7 @@ public class Event {
     /**
      * Возвращает дополнительные данные события.
      */
-    public Object getExtra() {
+    public Object[] getExtra() {
         return _extra;
     }
 }

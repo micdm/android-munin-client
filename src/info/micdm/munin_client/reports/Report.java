@@ -1,6 +1,7 @@
 package info.micdm.munin_client.reports;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Набор данных для визуализации.
@@ -40,6 +41,11 @@ public class Report {
     }
     
     /**
+     * Дата загрузки отчета.
+     */
+    protected Date _loaded;
+    
+    /**
      * Тип отчета.
      */
     protected Type _type;
@@ -55,15 +61,37 @@ public class Report {
     protected ArrayList<Point> _points = new ArrayList<Point>();
     
     public Report(Type type, Period period) {
+        _loaded = new Date();
         _type = type;
         _period = period;
     }
     
+    @Override
     public String toString() {
         if (_points == null) {
             return "report with no points";
         }
         return "report with " + _points.size() + " points";
+    }
+    
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Report)) {
+            return false;
+        }
+        Report report = (Report)o;
+        return report.getType() == _type && report.getPeriod() == _period;
+    }
+    
+    /**
+     * Возвращает, устарел ли отчет.
+     */
+    public Boolean isOutdated() {
+        return new Date().getTime() - _loaded.getTime() > 300;
     }
     
     /**
