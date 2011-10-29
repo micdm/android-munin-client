@@ -6,22 +6,41 @@ import info.micdm.munin_client.events.EventExtra;
 import info.micdm.munin_client.graph.GraphView;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Report;
-import info.micdm.munin_client.tasks.DownloadDataTask;
+import info.micdm.munin_client.reports.ReportLoader;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends CustomActivity {
 
+    protected void _loadByHour() {
+        Server server = new Server("192.168.1.3", 82);
+        ReportLoader.load(server, ReportLoader.Type.LOAD, ReportLoader.Period.HOUR);
+    }
+    
+    protected void _loadByDay() {
+        Server server = new Server("192.168.1.3", 82);
+        ReportLoader.load(server, ReportLoader.Type.LOAD, ReportLoader.Period.DAY);
+    }
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        Log.d(toString(), findViewById(R.id.graph).toString());
+        findViewById(R.id.getByHour).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _loadByHour();
+            }
+        });
         
-        Server server = new Server("192.168.1.3", 82);
-        DownloadDataTask task = new DownloadDataTask(server);
-        task.execute();
+        findViewById(R.id.getByDay).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _loadByDay();
+            }
+        });
     }
     
     @Override

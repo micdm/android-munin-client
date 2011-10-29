@@ -130,8 +130,20 @@ public class DownloadDataTask {
      */
     protected Server _server;
     
-    public DownloadDataTask(Server server) {
+    /**
+     * Тип отчета.
+     */
+    protected String _type;
+    
+    /**
+     * Период отчета.
+     */
+    protected String _period;
+    
+    public DownloadDataTask(Server server, String type, String period) {
         _server = server;
+        _type = type;
+        _period = period;
     }
     
     /**
@@ -139,7 +151,7 @@ public class DownloadDataTask {
      */
     protected String _getUri() {
         String url = "http://" + _server.getHost() + ":" + _server.getPort();
-        String urn = "/munin-export/export.py?type=load&period=hour";
+        String urn = "/munin-export/export.py?type=" + _type + "&period=" + _period;
         return url + urn;
     }
     
