@@ -4,6 +4,7 @@ import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
 import info.micdm.munin_client.graph.GraphView;
+import info.micdm.munin_client.models.Node;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Report;
 import info.micdm.munin_client.reports.ReportLoader;
@@ -15,12 +16,14 @@ public class MainActivity extends CustomActivity {
 
     protected void _loadByHour() {
         Server server = new Server("192.168.1.3", 82);
-        ReportLoader.load(server, ReportLoader.Type.LOAD, ReportLoader.Period.HOUR);
+        Node node = new Node("localhost.localdomain");
+        ReportLoader.load(server, node, ReportLoader.Type.LOAD, ReportLoader.Period.HOUR);
     }
     
     protected void _loadByDay() {
         Server server = new Server("192.168.1.3", 82);
-        ReportLoader.load(server, ReportLoader.Type.LOAD, ReportLoader.Period.DAY);
+        Node node = new Node("localhost.localdomain");
+        ReportLoader.load(server, node, ReportLoader.Type.LOAD, ReportLoader.Period.DAY);
     }
     
     @Override

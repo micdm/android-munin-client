@@ -2,6 +2,7 @@ package info.micdm.munin_client.tasks;
 
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
+import info.micdm.munin_client.models.Node;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Point;
 import info.micdm.munin_client.reports.Report;
@@ -132,6 +133,11 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
     protected Server _server;
     
     /**
+     * Нода, для которой нужен отчет.
+     */
+    protected Node _node;
+    
+    /**
      * Тип отчета.
      */
     protected String _type;
@@ -141,8 +147,9 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
      */
     protected String _period;
     
-    public DownloadReportTask(Server server, String type, String period) {
+    public DownloadReportTask(Server server, Node node, String type, String period) {
         _server = server;
+        _node = node;
         _type = type;
         _period = period;
     }

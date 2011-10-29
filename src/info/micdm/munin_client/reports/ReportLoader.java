@@ -1,5 +1,6 @@
 package info.micdm.munin_client.reports;
 
+import info.micdm.munin_client.models.Node;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.tasks.DownloadReportTask;
 
@@ -43,8 +44,8 @@ public class ReportLoader {
     /**
      * Загружает отчет с указанного сервера.
      */
-    public static void load(Server server, Type type, Period period) {
-        DownloadReportTask task = new DownloadReportTask(server, type.toString(), period.toString());
+    public static void load(Server server, Node node, Type type, Period period) {
+        DownloadReportTask task = new DownloadReportTask(server, node, type.toString(), period.toString());
         task.execute();
     }
 }
