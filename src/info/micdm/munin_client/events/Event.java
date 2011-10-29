@@ -1,30 +1,48 @@
 package info.micdm.munin_client.events;
 
 /**
- * События для приложения.
+ * Событие.
  * @author Mic, 2011
  *
  */
-public enum Event {
+public class Event {
 
     /**
-     * Данные загружены.
+     * Типы событий.
+     * @author Mic, 2011
+     *
      */
-    REPORT_LOADED;
-
-    public String toString() {
-        return "info.micdm.munin_client." + name().toLowerCase();
+    public enum Type {
+        REPORT_LOADED,
+        REPORT_AVAILABLE
     }
     
     /**
-     * Находит событие по его типу.
+     * Тип события.
      */
-    public static Event get(String eventString) {
-        for (Event event: values()) {
-            if (event.toString().equals(eventString)) {
-                return event;
-            }
-        }
-        return null;
+    protected Type _type;
+    
+    /**
+     * Дополнительные данные события.
+     */
+    protected Object _extra;
+    
+    public Event(Type type, Object extra) {
+        _type = type;
+        _extra = extra;
+    }
+    
+    /**
+     * Возвращает тип события.
+     */
+    public Type getType() {
+        return _type;
+    }
+    
+    /**
+     * Возвращает дополнительные данные события.
+     */
+    public Object getExtra() {
+        return _extra;
     }
 }

@@ -1,7 +1,7 @@
 package info.micdm.munin_client.tasks;
 
-import info.micdm.munin_client.custom.CustomApplication;
 import info.micdm.munin_client.events.Event;
+import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Point;
 import info.micdm.munin_client.reports.Report;
@@ -15,6 +15,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
 import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.EndTextElementListener;
@@ -24,11 +25,11 @@ import android.util.Log;
 import android.util.Xml;
 
 /**
- * Парсер данных.
+ * Парсер данных для отчета.
  * @author Mic, 2011
  *
  */
-class DataParser {
+class ReportParser {
     
     /**
      * Промежуточная переменная для отчета.
@@ -123,7 +124,7 @@ class DataParser {
  * @author Mic, 2011
  *
  */
-public class DownloadDataTask {
+public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
 
     /**
      * Сервер, с которого грузим данные.
@@ -140,7 +141,7 @@ public class DownloadDataTask {
      */
     protected String _period;
     
-    public DownloadDataTask(Server server, String type, String period) {
+    public DownloadReportTask(Server server, String type, String period) {
         _server = server;
         _type = type;
         _period = period;
@@ -174,32 +175,22 @@ public class DownloadDataTask {
             return null;
         }
     }
-    
-    /**
-     * Запускается в отдельном потоке, делает всю работу.
-     */
-    protected void _runOnThread() {
+
+    @Override
+    protected Report doInBackground(Void... params) {
         String data = _downloadData();
         if (data == null) {
-            CustomApplication.sendEvent(Event.REPORT_LOADED);
-            return;
+            return null;
         }
-        DataParser parser = new DataParser();
+        ReportParser parser = new ReportParser();
         Report report = parser.parse(data);
         Log.d(toString(), "parsed: " + report);
-        CustomApplication.sendEvent(Event.REPORT_LOADED, report);
+        return report;
     }
     
-    /**
-     * Запускает задачу.
-     */
-    public void execute() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                _runOnThread();
-            }
-        });
-        thread.start();
+    @Override
+    protected void onPostExecute(Report report) {
+        Event event = new Event(Event.Type.REPORT_AVAILABLE, report);
+        EventDispatcher.dispatch(event);
     }
 }

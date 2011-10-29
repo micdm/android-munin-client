@@ -1,8 +1,8 @@
 package info.micdm.munin_client;
 
-import info.micdm.munin_client.custom.CustomActivity;
 import info.micdm.munin_client.events.Event;
-import info.micdm.munin_client.events.EventExtra;
+import info.micdm.munin_client.events.EventDispatcher;
+import info.micdm.munin_client.events.EventListener;
 import info.micdm.munin_client.graph.GraphView;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Report;
@@ -44,11 +44,14 @@ public class MainActivity extends CustomActivity {
     }
     
     @Override
-    protected void _onEvent(Event event, EventExtra extra) {
-        if (event.equals(Event.REPORT_LOADED)) {
-            Report report = (Report)extra;
-            GraphView view = (GraphView)findViewById(R.id.graph);
-            view.setReport(report);
-        }
+    protected void _addListeners() {
+        EventDispatcher.addListener(Event.Type.REPORT_AVAILABLE, new EventListener(this) {
+            @Override
+            public void notify(Event event) {
+                Report report = (Report)event.getExtra();
+                GraphView view = (GraphView)findViewById(R.id.graph);
+                view.setReport(report);
+            }
+        });
     }
 }
