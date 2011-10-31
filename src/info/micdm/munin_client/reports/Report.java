@@ -11,6 +11,11 @@ import java.util.Date;
 public class Report {
 
     /**
+     * Время жизни отчета (в секундах).
+     */
+    protected final Integer LIFETIME = 300;
+    
+    /**
      * Типы отчетов.
      * @author Mic, 2011
      *
@@ -91,7 +96,7 @@ public class Report {
      * Возвращает, устарел ли отчет.
      */
     public Boolean isOutdated() {
-        return new Date().getTime() - _loaded.getTime() > 300;
+        return new Date().getTime() - _loaded.getTime() > LIFETIME * 1000;
     }
     
     /**
