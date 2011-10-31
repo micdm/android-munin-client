@@ -21,7 +21,7 @@ public class EventDispatcher {
      * Рассылает событие.
      */
     public static void dispatch(Event event) {
-        Log.d("", "dispatching event " + event);
+        Log.d("", "dispatching event " + event.getType());
         ArrayList<EventListener> listeners = _listeners.get(event.getType());
         if (listeners != null) {
             for (EventListener listener: listeners) {

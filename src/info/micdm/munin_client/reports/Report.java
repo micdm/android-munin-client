@@ -124,7 +124,7 @@ public class Report {
      * Добавляет точку.
      */
     public void addPoint(Point point) {
-        if (point.getValue() != Float.NaN) {
+        if (!Float.isNaN(point.getValue())) {
             _points.add(point);
         }
     }
