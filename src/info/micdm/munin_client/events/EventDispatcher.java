@@ -40,9 +40,9 @@ public class EventDispatcher {
         _listeners.get(event).add(listener);
     }
     
-    protected static void _removeListenersByRecipientHash(Event.Type event, Integer hash) {
+    protected static void _removeListenersByRecipientHash(Event.Type event, int hash) {
         ArrayList<EventListener> listeners = _listeners.get(event);
-        for (Integer i = listeners.size() - 1; i >= 0; i -= 1) {
+        for (int i = listeners.size() - 1; i >= 0; i -= 1) {
             if (listeners.get(i).getRecipient() == hash) {
                 listeners.remove(i);
             }
@@ -56,7 +56,7 @@ public class EventDispatcher {
         if (!_listeners.containsKey(event)) {
             Log.w("", "no listeners for event " + event);
         } else {
-            Integer hash = EventListener.getRecipientHash(recipient);
+            int hash = EventListener.getRecipientHash(recipient);
             _removeListenersByRecipientHash(event, hash);
         }
     }
@@ -65,7 +65,7 @@ public class EventDispatcher {
      * Удаляет всех слушателей.
      */
     public static void removeAllListeners(Object recipient) {
-        Integer hash = EventListener.getRecipientHash(recipient);
+        int hash = EventListener.getRecipientHash(recipient);
         for (Event.Type event: _listeners.keySet()) {
             _removeListenersByRecipientHash(event, hash);
         }

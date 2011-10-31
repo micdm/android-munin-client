@@ -10,7 +10,7 @@ public abstract class EventListener {
     /**
      * Получатель события.
      */
-    protected Integer _recipient;
+    protected int _recipient;
     
     public EventListener(Object recipient) {
         _recipient = getRecipientHash(recipient);
@@ -19,14 +19,14 @@ public abstract class EventListener {
     /**
      * Вычисляет хэш получателя.
      */
-    public static Integer getRecipientHash(Object recipient) {
+    public static int getRecipientHash(Object recipient) {
         return recipient.hashCode();
     }
     
     /**
      * Возвращает своего получателя.
      */
-    public Integer getRecipient() {
+    public int getRecipient() {
         return _recipient;
     }
     

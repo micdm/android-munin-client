@@ -13,7 +13,7 @@ public class Report {
     /**
      * Время жизни отчета (в секундах).
      */
-    protected final Integer LIFETIME = 300;
+    protected final int LIFETIME = 300;
     
     /**
      * Типы отчетов.
@@ -89,13 +89,13 @@ public class Report {
             return false;
         }
         Report report = (Report)o;
-        return report.getType() == _type && report.getPeriod() == _period;
+        return report.getType().equals(_type) && report.getPeriod().equals(_period);
     }
     
     /**
      * Возвращает, устарел ли отчет.
      */
-    public Boolean isOutdated() {
+    public boolean isOutdated() {
         return new Date().getTime() - _loaded.getTime() > LIFETIME * 1000;
     }
     
@@ -124,7 +124,7 @@ public class Report {
      * Добавляет точку.
      */
     public void addPoint(Point point) {
-        if (!point.getValue().equals(Float.NaN)) {
+        if (point.getValue() != Float.NaN) {
             _points.add(point);
         }
     }
@@ -132,25 +132,40 @@ public class Report {
     /**
      * Возвращает время начала отчета.
      */
-    public Integer getStartTime() {
-        return _points.get(0).getTime();
+    public Point getStart() {
+        return _points.get(0);
     }
     
     /**
      * Возвращает время окончания отчета.
      */
-    public Integer getEndTime() {
-        return _points.get(_points.size() - 1).getTime();
+    public Point getEnd() {
+        return _points.get(_points.size() - 1);
     }
     
     /**
-     * Находит максимальное значение среди точек.
+     * Возвращает минимальную точку.
      */
-    public Float getMaxValue() {
-        Float result = Float.NEGATIVE_INFINITY;
+    public Point getMin() {
+        Point min = _points.get(0);
         for (Point point: _points) {
-            result = result > point.getValue() ? result : point.getValue();
+            if (point.getValue() < min.getValue()) {
+                min = point;
+            }
         }
-        return result;
+        return min;
+    }
+    
+    /**
+     * Возвращает максимальную точку.
+     */
+    public Point getMax() {
+        Point max = _points.get(0);
+        for (Point point: _points) {
+            if (point.getValue() > max.getValue()) {
+                max = point;
+            }
+        }
+        return max;
     }
 }

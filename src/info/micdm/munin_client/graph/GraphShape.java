@@ -25,6 +25,9 @@ public class GraphShape extends Shape {
         _report = report;
     }
 
+    /**
+     * Рисует рамку вокруг графика.
+     */
     protected void _drawBorder(Canvas canvas, Paint paint) {
         canvas.drawLine(0, 0, getWidth(), 0, paint);
         canvas.drawLine(0, 0, 0, getHeight(), paint);
@@ -33,20 +36,50 @@ public class GraphShape extends Shape {
     }
     
     /**
+     * Рисует горизонтальную линию.
+     */
+    protected void _drawHorizontalLine(float value, Canvas canvas, Paint paint) {
+        float y = getHeight() - (getHeight() / _report.getMax().getValue()) * value;
+        canvas.drawLine(0, y, getWidth(), y, paint);
+        canvas.drawText(String.valueOf(value), 0, y - 2, paint);
+    }
+    
+    /**
+     * Рисует сетку для вертикальной оси.
+     */
+    protected void _drawHorizontalGrid(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(0xFFFFFF00);
+        paint.setStrokeMiter(1);
+        _drawHorizontalLine(_report.getMin().getValue(), canvas, paint);
+        _drawHorizontalLine(_report.getMax().getValue(), canvas, paint);
+    }
+    
+    /**
+     * Рисует сетку.
+     */
+    protected void _drawGrid(Canvas canvas) {
+        _drawHorizontalGrid(canvas);
+    }
+    
+    /**
      * Рисует график.
      */
-    protected void _drawGraph(Canvas canvas, Paint paint) {
+    protected void _drawGraph(Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setColor(0xFFFFFFFF);
+        paint.setStrokeWidth(1);
         ArrayList<Point> points = _report.getPoints();
-        Float stepX = getWidth() / (float)(_report.getEndTime() - _report.getStartTime());
-        Float stepY = getHeight() / _report.getMaxValue();
+        float stepX = getWidth() / (float)(_report.getEnd().getTime() - _report.getStart().getTime());
+        float stepY = getHeight() / _report.getMax().getValue();
         Point firstPoint = points.get(0);
         Point prevPoint = null;
         for (Point point: points) {
             if (prevPoint != null) {
-                Float startX = (prevPoint.getTime() - firstPoint.getTime()) * stepX;
-                Float startY = getHeight() - prevPoint.getValue() * stepY;
-                Float endX = (point.getTime() - firstPoint.getTime()) * stepX;
-                Float endY = getHeight() - point.getValue() * stepY;
+                float startX = (prevPoint.getTime() - firstPoint.getTime()) * stepX;
+                float startY = getHeight() - prevPoint.getValue() * stepY;
+                float endX = (point.getTime() - firstPoint.getTime()) * stepX;
+                float endY = getHeight() - point.getValue() * stepY;
                 canvas.drawLine(startX, startY, endX, endY, paint);
             }
             prevPoint = point;
@@ -56,6 +89,7 @@ public class GraphShape extends Shape {
     @Override
     public void draw(Canvas canvas, Paint paint) {
         //_drawBorder(canvas, paint);
-        _drawGraph(canvas, paint);
+        _drawGrid(canvas);
+        _drawGraph(canvas);
     }
 }

@@ -29,8 +29,8 @@ public class Node {
      * Добавляет новый отчет в список либо перезаписывает старый такой же.
      */
     public void addReport(Report report) {
-        Integer index = _reports.indexOf(report);
-        if (index.equals(-1)) {
+        int index = _reports.indexOf(report);
+        if (index == -1) {
             _reports.add(report);
         } else {
             _reports.set(index, report);

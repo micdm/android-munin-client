@@ -17,14 +17,14 @@ public class Server {
     /**
      * Порт сервера.
      */
-    protected Integer _port;
+    protected int _port;
     
     /**
      * Список ведомых серверов.
      */
     protected HashMap<String, Node> _nodes = new HashMap<String, Node>();
     
-    public Server(String host, Integer port) {
+    public Server(String host, int port) {
         _host = host;
         _port = port;
     }
@@ -43,7 +43,7 @@ public class Server {
     /**
      * Возвращает порт.
      */
-    public Integer getPort() {
+    public int getPort() {
         return _port;
     }
     

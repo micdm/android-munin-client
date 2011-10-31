@@ -11,12 +11,12 @@ public class Point {
     /**
      * Время в точке.
      */
-    protected Integer _time;
+    protected int _time;
     
     /**
      * Значение в точке.
      */
-    protected Float _value;
+    protected float _value;
     
     public String toString() {
         return "point (" + _time + ":" + _value + ")";
@@ -25,28 +25,28 @@ public class Point {
     /**
      * Устанавливает время в точке.
      */
-    public void setTime(Integer value) {
+    public void setTime(int value) {
         _time = value;
     }
     
     /**
      * Возвращает время в точке.
      */
-    public Integer getTime() {
+    public int getTime() {
         return _time;
     }
     
     /**
      * Устанавливает значение в точке.
      */
-    public void setValue(Float value) {
+    public void setValue(float value) {
         _value = value;
     }
     
     /**
      * Возвращает значение в точке.
      */
-    public Float getValue() {
+    public float getValue() {
         return _value;
     }
 }
