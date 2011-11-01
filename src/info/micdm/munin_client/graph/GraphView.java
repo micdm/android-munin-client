@@ -25,11 +25,19 @@ public class GraphView extends View {
     }
     
     /**
+     * Создает и настраивает фигуру.
+     */
+    protected GraphShape _getShape() {
+        GraphShape shape = new GraphShape(_report);
+        shape.resize(getWidth(), getHeight());
+        return shape;
+    }
+    
+    /**
      * Создает и настраивает отрисовку.
      */
-    protected ShapeDrawable _setupDrawable(GraphShape shape) {
-        ShapeDrawable drawable = new ShapeDrawable(shape);
-        shape.resize(getWidth(), getHeight());
+    protected ShapeDrawable _getShapeDrawable() {
+        ShapeDrawable drawable = new ShapeDrawable(_getShape());
         Paint paint = drawable.getPaint();
         paint.setColor(0xFFFFFFFF);
         paint.setStrokeWidth(1);
@@ -39,8 +47,7 @@ public class GraphView extends View {
     @Override
     protected void onDraw (Canvas canvas) {
         if (_report != null) {
-            GraphShape shape = new GraphShape(_report);
-            ShapeDrawable drawable = _setupDrawable(shape);
+            ShapeDrawable drawable = _getShapeDrawable();
             drawable.draw(canvas);
         }
     }

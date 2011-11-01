@@ -49,7 +49,7 @@ class ReportParser {
         time.setEndTextElementListener(new EndTextElementListener() {
             @Override
             public void end(String body) {
-                _point.setTime(Integer.parseInt(body));
+                _point.setTime(Float.parseFloat(body));
             }
         });
     }

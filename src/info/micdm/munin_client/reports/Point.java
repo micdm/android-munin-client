@@ -11,7 +11,7 @@ public class Point {
     /**
      * Время в точке.
      */
-    protected int _time;
+    protected float _time;
     
     /**
      * Значение в точке.
@@ -25,14 +25,14 @@ public class Point {
     /**
      * Устанавливает время в точке.
      */
-    public void setTime(int value) {
+    public void setTime(float value) {
         _time = value;
     }
     
     /**
      * Возвращает время в точке.
      */
-    public int getTime() {
+    public float getTime() {
         return _time;
     }
     
