@@ -9,6 +9,11 @@ package info.micdm.munin_client.reports;
 public class Point {
 
     /**
+     * Номер точки.
+     */
+    protected int _number;
+    
+    /**
      * Время в точке.
      */
     protected float _time;
@@ -20,6 +25,20 @@ public class Point {
     
     public String toString() {
         return "point (" + _time + ":" + _value + ")";
+    }
+    
+    /**
+     * Устанавливает номер точки внутри отчета.
+     */
+    public void setNumber(int value) {
+        _number = value;
+    }
+    
+    /**
+     * Возвращает номер точки внутри отчета.
+     */
+    public int getNumber() {
+        return _number;
     }
     
     /**

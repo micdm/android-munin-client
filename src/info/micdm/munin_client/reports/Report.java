@@ -125,6 +125,7 @@ public class Report {
      */
     public void addPoint(Point point) {
         if (!Float.isNaN(point.getValue())) {
+            point.setNumber(_points.size());
             _points.add(point);
         }
     }

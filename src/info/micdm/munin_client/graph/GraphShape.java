@@ -9,8 +9,144 @@ import android.graphics.CornerPathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.shapes.Shape;
 import android.util.Log;
+
+/**
+ * Отрисовщик текстовой метки.
+ * @author Mic, 2011
+ *
+ */
+class LabelShape extends Shape {
+
+    /**
+     * Целевая точка.
+     */
+    protected Point _point;
+
+    /**
+     * X-координата точки.
+     */
+    protected float _x;
+    
+    /**
+     * Y-координата точки.
+     */
+    protected float _y;
+    
+    /**
+     * Ширина графика.
+     */
+    protected float _graphWidth;
+    
+    public LabelShape(Point point, float x, float y, float graphWidth) {
+        _point= point;
+        _x = x;
+        _y = y;
+        _graphWidth = graphWidth;
+    }
+    
+    /**
+     * Возвращает краску для горизонтальной линии-уровня.
+     */
+    protected Paint _getLevelPaint() {
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(0x77333333);
+        return paint;
+    }
+    
+    /**
+     * Рисует горизонтальную линию-уровень.
+     */
+    protected void _drawLevel(Canvas canvas) {
+        canvas.drawLine(0, _y, _graphWidth, _y, _getLevelPaint());
+    }
+    
+    /**
+     * Возвращает краску для фона подписей.
+     */
+    protected Paint _getBackgroundPaint() {
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(0xDD000000);
+        paint.setStyle(Paint.Style.FILL);
+        return paint;
+    }
+    
+    /**
+     * Рисует фон для подписи.
+     */
+    protected void _drawBackground(Canvas canvas, String text, float x, float y, float width, float height) {
+        Paint paint = _getBackgroundPaint();
+        int padding = 7;
+        canvas.drawRoundRect(new RectF(x - padding, y - padding, x + width + padding, y + height + padding), 5, 5, paint);
+    }
+
+    /**
+     * Возвращает краску для текста подписей.
+     */
+    protected Paint _getTextPaint() {
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(0xFFCCCCCC);
+        paint.setTextSize(20);
+        return paint;
+    }
+    
+    /**
+     * Рисует текст подписи.
+     */
+    protected void _drawText(Canvas canvas, String text, float x, float y) {
+        Paint paint = _getTextPaint();
+        canvas.drawText(text, x, y, paint);
+    }
+    
+    /**
+     * Возвращает границы текста.
+     */
+    protected Rect _getTextBounds(String text) {
+        Paint paint = _getTextPaint();
+        Rect bounds = new Rect();
+        paint.getTextBounds(text, 0, text.length(), bounds);
+        return bounds;
+    }
+    
+    /**
+     * Возвращает X-координату текста, чтоб он не вылез за экран.
+     */
+    protected float _getTextX(Rect bounds) {
+        if (_x + bounds.width() > _graphWidth) {
+            return _x - bounds.width();
+        }
+        return _x;
+    }
+    
+    /**
+     * Возвращает Y-координату текста, чтобы он не вылез за экран.
+     */
+    protected float _getTextY(Rect bounds) {
+        if (_y - bounds.height() < 0) {
+            return _y + bounds.height();
+        }
+        return _y;
+    }
+    
+    @Override
+    public void draw(Canvas canvas, Paint paint) {
+        DecimalFormat formatter = new DecimalFormat("#.###");
+        String text = formatter.format(_point.getValue());
+        Rect bounds = _getTextBounds(text);
+        float x = _getTextX(bounds);
+        float y = _getTextY(bounds);
+        _drawLevel(canvas);
+        _drawBackground(canvas, text, x, y - bounds.height(), bounds.width(), bounds.height());
+        _drawText(canvas, text, x, y);
+    }
+}
+
 
 /**
  * Отрисовщик графика.
@@ -122,27 +258,13 @@ public class GraphShape extends Shape {
     }
     
     /**
-     * Возвращает краску для текста подписей.
-     */
-    protected Paint _getLabelTextPaint() {
-        Paint paint = new Paint();
-        paint.setColor(0xFFFFFF00);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(20);
-        return paint;
-    }
-    
-    /**
      * Рисует подписи к точкам.
      */
     protected void _drawLabels(Canvas canvas) {
-        Paint paint = _getLabelTextPaint();
-        DecimalFormat formatter = new DecimalFormat("#.###");
-        int i = 0;
-        for (Point point: _report.getPoints()) {
-            String text = formatter.format(point.getValue());
-            canvas.drawText(text, _coords[i], _coords[i + 1], paint);
-            i += 2;
+        for (Point point: new Point[] {_report.getStart(), _report.getEnd(), _report.getMin(), _report.getMax()}) {
+            int index = point.getNumber() * 2;
+            LabelShape shape = new LabelShape(point, _coords[index], _coords[index + 1], getWidth());
+            shape.draw(canvas, null);
         }
     }
     
