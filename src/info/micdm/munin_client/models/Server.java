@@ -70,9 +70,9 @@ public class Server {
     /**
      * Возвращает ноду.
      */
-    public Node getNode(String name) {
+    public Node getNode(String domain, String name) {
         if (!_nodes.containsKey(name)) {
-            _nodes.put(name, new Node(name));
+            _nodes.put(name, new Node(domain, name));
         }
         return _nodes.get(name);
     }

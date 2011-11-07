@@ -151,7 +151,7 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
      */
     protected String _getUri() {
         String url = "http://" + _server.getHost() + ":" + _server.getPort();
-        String urn = "/munin-export/export.py?type=" + _type + "&period=" + _period;
+        String urn = "/munin-export/report/" + _node.getDomain() + "/" + _node.getName() + "/" + _type + "/" + _period + "/";
         return url + urn;
     }
     

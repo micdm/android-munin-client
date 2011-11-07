@@ -12,6 +12,11 @@ import java.util.ArrayList;
 public class Node {
 
     /**
+     * Домен ноды.
+     */
+    protected String _domain;
+    
+    /**
      * Название ноды.
      */
     protected String _name;
@@ -21,8 +26,23 @@ public class Node {
      */
     protected ArrayList<Report> _reports = new ArrayList<Report>();
     
-    public Node(String name) {
+    public Node(String domain, String name) {
+        _domain = domain;
         _name = name;
+    }
+    
+    /**
+     * Возвращает домен ноды.
+     */
+    public String getDomain() {
+        return _domain;
+    }
+    
+    /**
+     * Возвращает название ноды.
+     */
+    public String getName() {
+        return _name;
     }
     
     /**

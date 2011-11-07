@@ -17,13 +17,13 @@ public class MainActivity extends CustomActivity {
 
     protected void _loadByHour() {
         Server server = ServerList.getInstance().getServer("main");
-        Node node = server.getNode("localhost.localdomain");
+        Node node = server.getNode("localdomain", "localhost.localdomain");
         ReportLoader.getInstance().load(server, node, Report.Type.LOAD, Report.Period.HOUR);
     }
     
     protected void _loadByDay() {
         Server server = ServerList.getInstance().getServer("main");
-        Node node = server.getNode("localhost.localdomain");
+        Node node = server.getNode("localdomain", "localhost.localdomain");
         ReportLoader.getInstance().load(server, node, Report.Type.LOAD, Report.Period.DAY);
     }
     
