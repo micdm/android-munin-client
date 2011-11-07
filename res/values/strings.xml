@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World!</string>
     <string name="app_name">Munin Client</string>
+    <string name="serverPort">Порт</string>
+    <string name="serverHost">Хост</string>
+    <string name="serverUsername">Логин</string>
+    <string name="serverPassword">Пароль</string>
+    <string name="newServer">Укажите сервер:</string>
+    <string name="serverNeedAuth">Авторизовать</string>
+    <string name="serverCreate">Создать</string>
 
 </resources>

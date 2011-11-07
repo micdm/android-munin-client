@@ -20,17 +20,37 @@ public class Server {
     protected int _port;
     
     /**
+     * Имя пользователя.
+     */
+    protected String _username;
+    
+    /**
+     * Пароль.
+     */
+    protected String _password;
+    
+    /**
      * Список ведомых серверов.
      */
     protected HashMap<String, Node> _nodes = new HashMap<String, Node>();
     
-    public Server(String host, int port) {
-        _host = host;
-        _port = port;
-    }
-    
     public Server(String host) {
         this(host, 80);
+    }
+    
+    public Server(String host, int port) {
+        this(host, port, null, null);
+    }
+
+    public Server(String host, int port, String username, String password) {
+        _host = host;
+        _port = port;
+        _username = username;
+        _password = password;
+    }
+
+    public String toString() {
+        return "server " + _host + ":" + _port;
     }
     
     /**

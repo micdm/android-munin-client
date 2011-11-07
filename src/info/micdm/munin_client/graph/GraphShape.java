@@ -1,9 +1,10 @@
 package info.micdm.munin_client.graph;
 
-import java.text.DecimalFormat;
-
 import info.micdm.munin_client.reports.Point;
 import info.micdm.munin_client.reports.Report;
+
+import java.text.DecimalFormat;
+
 import android.graphics.Canvas;
 import android.graphics.CornerPathEffect;
 import android.graphics.Matrix;
@@ -12,7 +13,6 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.shapes.Shape;
-import android.util.Log;
 
 /**
  * Отрисовщик текстовой метки.
