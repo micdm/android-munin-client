@@ -1,5 +1,6 @@
 package info.micdm.munin_client.models;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -26,15 +27,21 @@ public class ServerList {
      */
     protected HashMap<String, Server> _servers = new HashMap<String, Server>();
     
+    protected ServerList() {
+        _servers.put("mic-dm.tom.ru", new Server("mic-dm.tom.ru", 82));
+    }
+    
     /**
      * Возвращает сервер.
      */
     public Server getServer(String name) {
-        if (!_servers.containsKey(name)) {
-            if (name.equals("main")) {
-                _servers.put(name, new Server("192.168.1.3", 82));
-            }
-        }
         return _servers.get(name);
+    }
+    
+    /**
+     * Возвращает список всех серверов.
+     */
+    public Collection<Server> getServers() {
+        return _servers.values();
     }
 }

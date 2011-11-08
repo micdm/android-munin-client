@@ -7,6 +7,9 @@
     <string name="serverPassword">Пароль</string>
     <string name="newServer">Укажите сервер:</string>
     <string name="serverNeedAuth">Авторизовать</string>
-    <string name="serverCreate">Создать</string>
+    <string name="serverCreate">Добавить</string>
+    <string name="noServerCreated">Вы ещё не добавили серверы</string>
+    <string name="addServer">Добавить новый</string>
+    <string name="noNodesFound">Ноды не найдены на указанном сервере</string>
 
 </resources>

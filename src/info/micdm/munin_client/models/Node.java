@@ -31,6 +31,11 @@ public class Node {
         _name = name;
     }
     
+    @Override
+    public String toString() {
+        return _name;
+    }
+    
     /**
      * Возвращает домен ноды.
      */

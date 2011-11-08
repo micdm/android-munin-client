@@ -1,5 +1,6 @@
 package info.micdm.munin_client.models;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -47,10 +48,12 @@ public class Server {
         _port = port;
         _username = username;
         _password = password;
+        
+        _nodes.put("localhost.localdomain", new Node("localdomain", "localhost.localdomain"));
     }
 
     public String toString() {
-        return "server " + _host + ":" + _port;
+        return _host + ":" + _port;
     }
     
     /**
@@ -70,10 +73,14 @@ public class Server {
     /**
      * Возвращает ноду.
      */
-    public Node getNode(String domain, String name) {
-        if (!_nodes.containsKey(name)) {
-            _nodes.put(name, new Node(domain, name));
-        }
+    public Node getNode(String name) {
         return _nodes.get(name);
+    }
+    
+    /**
+     * Возвращает список из всех нод.
+     */
+    public Collection<Node> getNodes() {
+        return _nodes.values();
     }
 }
