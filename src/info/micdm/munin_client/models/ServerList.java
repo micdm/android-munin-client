@@ -27,10 +27,6 @@ public class ServerList {
      */
     protected HashMap<String, Server> _servers = new HashMap<String, Server>();
     
-    protected ServerList() {
-        _servers.put("mic-dm.tom.ru", new Server("mic-dm.tom.ru", 82));
-    }
-    
     /**
      * Возвращает сервер.
      */

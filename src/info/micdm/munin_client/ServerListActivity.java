@@ -52,9 +52,9 @@ public class ServerListActivity extends ListActivity {
     /**
      * Выполняется, когда пользователь выбирает сервер из списка.
      */
-    protected void _onSelectServer() {
+    protected void _onSelectServer(Server server) {
         Intent intent = new Intent(this, ServerActivity.class);
-        intent.putExtra("server", "mic-dm.tom.ru");
+        intent.putExtra("server", server.getHost());
         startActivity(intent);
     }
     
@@ -65,7 +65,7 @@ public class ServerListActivity extends ListActivity {
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                _onSelectServer();
+                _onSelectServer((Server)parent.getItemAtPosition(position));
             }
         });
     }

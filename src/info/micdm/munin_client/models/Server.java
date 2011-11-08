@@ -48,8 +48,6 @@ public class Server {
         _port = port;
         _username = username;
         _password = password;
-        
-        _nodes.put("localhost.localdomain", new Node("localdomain", "localhost.localdomain"));
     }
 
     public String toString() {

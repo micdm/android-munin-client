@@ -44,10 +44,10 @@ public class ServerActivity extends ListActivity {
     /**
      * Выполняется, когда пользователь выбирает ноду из списка.
      */
-    protected void _onSelectNode() {
+    protected void _onSelectNode(Node node) {
         Intent intent = new Intent(this, NodeActivity.class);
-        intent.putExtra("server", "mic-dm.tom.ru");
-        intent.putExtra("node", "localhost.localdomain");
+        intent.putExtra("server", _server.getHost());
+        intent.putExtra("node", node.getName());
         startActivity(intent);
     }
     
@@ -58,7 +58,7 @@ public class ServerActivity extends ListActivity {
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                _onSelectNode();
+                _onSelectNode((Node)parent.getItemAtPosition(position));
             }
         });
     }
