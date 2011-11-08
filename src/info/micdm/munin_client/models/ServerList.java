@@ -40,4 +40,18 @@ public class ServerList {
     public Collection<Server> getServers() {
         return _servers.values();
     }
+    
+    /**
+     * Добавляет сервер в список.
+     */
+    public void addServer(Server server) {
+        _servers.put(server.getHost(), server);
+    }
+    
+    /**
+     * Сохраняет список серверов.
+     */
+    public void save() {
+        
+    }
 }
