@@ -4,6 +4,9 @@ import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.models.ServerList;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,8 +18,43 @@ import android.widget.TextView;
  * @author Mic, 2011
  *
  */
-public class NewServerActivity extends CustomActivity {
+public class EditServerActivity extends CustomActivity {
 
+    /**
+     * Сервер для редактирования.
+     * Равно null, если добавляется новый сервер. 
+     */
+    protected Server _server;
+    
+    /**
+     * Задает текст.
+     */
+    protected void _setInputText(int id, String text) {
+        ((TextView)findViewById(id)).setText(text);
+    }
+    
+    /**
+     * Возвращает введенный текст.
+     */
+    protected String _getInputText(int id) {
+        return ((TextView)findViewById(id)).getText().toString();
+    }
+    
+    /**
+     * Запоминает сервер для редактирования.
+     */
+    protected void _setServer(Bundle bundle) {
+        if (bundle == null || !bundle.containsKey("server")) {
+            return;
+        }
+        String serverName = bundle.getString("server");
+        _server = ServerList.INSTANCE.get(serverName);
+        _setInputText(R.id.server_host, _server.getHost());
+        _setInputText(R.id.server_port, String.valueOf(_server.getPort()));
+        _setInputText(R.id.server_username, _server.getUsername());
+        _setInputText(R.id.server_password, _server.getPassword());
+    }
+    
     /**
      * Вызывается при переключении флажка.
      */
@@ -37,13 +75,6 @@ public class NewServerActivity extends CustomActivity {
                 _onNeedAuthChanged(isChecked);
             }
         });
-    }
-    
-    /**
-     * Возвращает введенный текст.
-     */
-    protected String _getInputText(int id) {
-        return ((TextView)findViewById(id)).getText().toString();
     }
     
     /**
@@ -69,14 +100,6 @@ public class NewServerActivity extends CustomActivity {
     }
     
     /**
-     * Добавляет сервер в список.
-     */
-    protected void _addServer(Server server) {
-        ServerList.INSTANCE.add(server);
-        ServerList.INSTANCE.save();
-    }
-    
-    /**
      * Возвращает к списку серверов.
      */
     protected void _goToServerList() {
@@ -87,32 +110,42 @@ public class NewServerActivity extends CustomActivity {
     /**
      * Вызывается для добавления нового сервера.
      */
-    protected void _onCreateServer() {
+    protected void _onAddServer() {
         Server server = _getNewServer();
         if (server != null) {
-            _addServer(server);
+            if (_server != null) {
+                ServerList.INSTANCE.delete(_server);
+                _server = null;
+            }
+            ServerList.INSTANCE.add(server);
+            ServerList.INSTANCE.save();
             _goToServerList();
         }
-    }
-    
-    /**
-     * Слушает клик по кнопке "Создать".
-     */
-    protected void _listenToCreateServer() {
-        Button create = (Button)findViewById(R.id.server_add);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _onCreateServer();
-            }
-        });
     }
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_server);
+        setContentView(R.layout.edit_server);
+        _setServer(getIntent().getExtras());
         _listenToNeedAuthChanged();
-        _listenToCreateServer();
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_server_options, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.server_add:
+            _onAddServer();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

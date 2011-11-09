@@ -37,7 +37,7 @@ public class ServerListActivity extends ListActivity {
      * Выполняется, когда пользователь хочет добавить новый сервер.
      */
     protected void _onAddNewServer() {
-        Intent intent = new Intent(this, NewServerActivity.class);
+        Intent intent = new Intent(this, EditServerActivity.class);
         startActivity(intent);
     }
     
@@ -60,6 +60,15 @@ public class ServerListActivity extends ListActivity {
                 _onSelectServer((Server)parent.getItemAtPosition(position));
             }
         });
+    }
+    
+    /**
+     * Выполняется, когда пользователь хочет отредактировать сервер.
+     */
+    protected void _onEditServer(Server server) {
+        Intent intent = new Intent(this, EditServerActivity.class);
+        intent.putExtra("server", server.getName());
+        startActivity(intent);
     }
     
     /**
@@ -113,11 +122,13 @@ public class ServerListActivity extends ListActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+        Server server = (Server)getListAdapter().getItem(info.position);
         switch (item.getItemId()) {
         case R.id.server_edit:
+            _onEditServer(server);
             return true;
         case R.id.server_delete:
-            _onDeleteServer((Server)getListAdapter().getItem(info.position));
+            _onDeleteServer(server);
             return true;
         default:
             return super.onContextItemSelected(item);
