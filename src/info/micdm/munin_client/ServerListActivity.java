@@ -46,7 +46,7 @@ public class ServerListActivity extends ListActivity {
      */
     protected void _onSelectServer(Server server) {
         Intent intent = new Intent(this, ServerActivity.class);
-        intent.putExtra("server", server.getHost());
+        intent.putExtra("server", server.getName());
         startActivity(intent);
     }
     
