@@ -99,7 +99,7 @@ public class NewServerActivity extends CustomActivity {
      * Слушает клик по кнопке "Создать".
      */
     protected void _listenToCreateServer() {
-        Button create = (Button)findViewById(R.id.add_server);
+        Button create = (Button)findViewById(R.id.server_add);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

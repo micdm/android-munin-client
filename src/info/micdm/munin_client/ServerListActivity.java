@@ -95,7 +95,7 @@ public class ServerListActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.add_server:
+        case R.id.server_add:
             _onAddNewServer();
             return true;
         default:
@@ -114,7 +114,9 @@ public class ServerListActivity extends ListActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
         switch (item.getItemId()) {
-        case R.id.delete_server:
+        case R.id.server_edit:
+            return true;
+        case R.id.server_delete:
             _onDeleteServer((Server)getListAdapter().getItem(info.position));
             return true;
         default:

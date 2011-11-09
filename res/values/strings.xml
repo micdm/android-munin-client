@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Munin Client</string>
+    <string name="no_servers_found">Вы ещё не добавили серверы</string>
     <string name="server_port">Порт</string>
     <string name="server_host">Хост</string>
     <string name="server_username">Логин</string>
     <string name="server_password">Пароль</string>
     <string name="server_need_auth">Авторизовать</string>
-    <string name="no_servers_found">Вы ещё не добавили серверы</string>
-    <string name="add_server">Добавить</string>
+    <string name="server_add">Добавить</string>
+    <string name="server_edit">Редактировать</string>
+    <string name="server_delete">Удалить</string>
     <string name="no_nodes_found">Ноды не найдены на указанном сервере</string>
-    <string name="delete_server">Удалить</string>
-    <string name="edit_server">Редактировать</string>
 
 </resources>
