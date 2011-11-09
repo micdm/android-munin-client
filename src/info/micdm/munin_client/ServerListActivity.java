@@ -5,6 +5,9 @@ import info.micdm.munin_client.models.ServerList;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,27 +29,6 @@ public class ServerListActivity extends ListActivity {
             adapter.add(server);
         }
         getListView().setAdapter(adapter);
-    }
-    
-    /**
-     * Выполняется, когда пользователь хочет добавить новый сервер.
-     */
-    protected void _onAddNewServer() {
-        Intent intent = new Intent(this, NewServerActivity.class);
-        startActivity(intent);
-    }
-    
-    /**
-     * Слушает клик по кнопке "Добавить новый сервер".
-     */
-    protected void _listenToAddNewServer() {
-        Button button = (Button)findViewById(R.id.addServer);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _onAddNewServer();
-            }
-        });
     }
     
     /**
@@ -74,7 +56,6 @@ public class ServerListActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_list);
-        _listenToAddNewServer();
         _listenToSelectServer();
     }
     
@@ -82,5 +63,31 @@ public class ServerListActivity extends ListActivity {
     public void onResume() {
         super.onResume();
         _fillList();
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.server_list_options, menu);
+        return true;
+    }
+    
+    /**
+     * Выполняется, когда пользователь хочет добавить новый сервер.
+     */
+    protected void _onAddNewServer() {
+        Intent intent = new Intent(this, NewServerActivity.class);
+        startActivity(intent);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.addServer:
+            _onAddNewServer();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
