@@ -50,6 +50,7 @@ public class Server {
         _password = password;
     }
 
+    @Override
     public String toString() {
         return _host + ":" + _port;
     }
@@ -80,6 +81,13 @@ public class Server {
      */
     public String getPassword() {
         return _password;
+    }
+    
+    /**
+     * Возвращает имя сервера.
+     */
+    public String getName() {
+        return _host + ":" + _port;
     }
     
     /**

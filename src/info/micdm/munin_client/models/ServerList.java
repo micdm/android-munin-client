@@ -58,13 +58,13 @@ public class ServerList {
      * Добавляет сервер в список.
      */
     public void add(Server server) {
-        _servers.put(server.getHost(), server);
+        _servers.put(server.getName(), server);
     }
     
     /**
      * Удаляет сервер из списка.
      */
     public void delete(Server server) {
-        _servers.remove(server.getHost());
+        _servers.remove(server.getName());
     }
 }
