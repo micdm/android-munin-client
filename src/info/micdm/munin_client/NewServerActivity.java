@@ -72,9 +72,8 @@ public class NewServerActivity extends CustomActivity {
      * Добавляет сервер в список.
      */
     protected void _addServer(Server server) {
-        ServerList list = ServerList.getInstance();
-        list.add(server);
-        list.save();
+        ServerList.INSTANCE.add(server);
+        ServerList.INSTANCE.save();
     }
     
     /**

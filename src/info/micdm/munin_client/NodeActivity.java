@@ -34,7 +34,7 @@ public class NodeActivity extends CustomActivity {
     protected void _setServerAndNode(Bundle bundle) {
         String serverName = bundle.getString("server");
         String nodeName = bundle.getString("node");
-        _server = ServerList.getInstance().get(serverName);
+        _server = ServerList.INSTANCE.get(serverName);
         _node = _server.getNode(nodeName);
     }
     
@@ -42,7 +42,7 @@ public class NodeActivity extends CustomActivity {
      * Загружает отчет за час.
      */
     protected void _loadByHour() {
-        ReportLoader.getInstance().load(_server, _node, Report.Type.LOAD, Report.Period.HOUR);
+        ReportLoader.INSTANCE.load(_server, _node, Report.Type.LOAD, Report.Period.HOUR);
     }
     
     @Override

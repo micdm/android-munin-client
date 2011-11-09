@@ -22,7 +22,7 @@ public class ServerListActivity extends ListActivity {
      */
     protected void _fillList() {
         ArrayAdapter<Server> adapter = new ArrayAdapter<Server>(this, android.R.layout.simple_list_item_1);
-        for (Server server: ServerList.getInstance().getAll()) {
+        for (Server server: ServerList.INSTANCE.getAll()) {
             adapter.add(server);
         }
         getListView().setAdapter(adapter);

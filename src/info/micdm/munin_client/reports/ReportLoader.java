@@ -17,15 +17,8 @@ public class ReportLoader {
     /**
      * Синглтон.
      */
-    protected final static ReportLoader _instance = new ReportLoader();
-    
-    /**
-     * Синглтон.
-     */
-    public static ReportLoader getInstance() {
-        return _instance;
-    }
-    
+    public final static ReportLoader INSTANCE = new ReportLoader();
+
     public ReportLoader() {
         _addListeners();
     }

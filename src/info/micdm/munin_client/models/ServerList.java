@@ -13,14 +13,7 @@ public class ServerList {
     /**
      * Синглтон.
      */
-    protected final static ServerList _instance = new ServerList();
-    
-    /**
-     * Синглтон.
-     */
-    public static ServerList getInstance() {
-        return _instance;
-    }
+    public final static ServerList INSTANCE = new ServerList();
     
     /**
      * Список серверов.
