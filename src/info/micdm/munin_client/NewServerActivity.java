@@ -22,15 +22,15 @@ public class NewServerActivity extends CustomActivity {
      */
     protected void _onNeedAuthChanged(boolean isChecked) {
         int visibility = isChecked ? View.VISIBLE : View.GONE;
-        findViewById(R.id.serverUsername).setVisibility(visibility);
-        findViewById(R.id.serverPassword).setVisibility(visibility);
+        findViewById(R.id.server_username).setVisibility(visibility);
+        findViewById(R.id.server_password).setVisibility(visibility);
     }
     
     /**
      * Слушает клик по чекбоксу "Авторизовать".
      */
     protected void _listenToNeedAuthChanged() {
-        CheckBox needAuth = (CheckBox)findViewById(R.id.serverNeedAuth);
+        CheckBox needAuth = (CheckBox)findViewById(R.id.server_need_auth);
         needAuth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -50,17 +50,17 @@ public class NewServerActivity extends CustomActivity {
      * Формирует объект нового сервера по введенным данным.
      */
     protected Server _getNewServer() {
-        String host = _getInputText(R.id.serverHost);
-        String port = _getInputText(R.id.serverPort);
+        String host = _getInputText(R.id.server_host);
+        String port = _getInputText(R.id.server_port);
         if (host.length() == 0 || port.length() == 0) {
             return null;
         }
         String username = null;
         String password = null;
-        CheckBox needAuth = (CheckBox)findViewById(R.id.serverNeedAuth);
+        CheckBox needAuth = (CheckBox)findViewById(R.id.server_need_auth);
         if (needAuth.isChecked()) {
-            username = _getInputText(R.id.serverUsername);
-            password = _getInputText(R.id.serverPassword);
+            username = _getInputText(R.id.server_username);
+            password = _getInputText(R.id.server_password);
             if (username.length() == 0 || password.length() == 0) {
                 return null;
             }
@@ -99,7 +99,7 @@ public class NewServerActivity extends CustomActivity {
      * Слушает клик по кнопке "Создать".
      */
     protected void _listenToCreateServer() {
-        Button create = (Button)findViewById(R.id.serverCreate);
+        Button create = (Button)findViewById(R.id.add_server);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -55,9 +55,16 @@ public class ServerList {
     }
     
     /**
-     * Добавляет сервер в список и сохраняет список.
+     * Добавляет сервер в список.
      */
     public void add(Server server) {
         _servers.put(server.getHost(), server);
+    }
+    
+    /**
+     * Удаляет сервер из списка.
+     */
+    public void delete(Server server) {
+        _servers.remove(server.getHost());
     }
 }

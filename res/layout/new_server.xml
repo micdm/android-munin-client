@@ -10,49 +10,49 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/serverHost"
+            android:id="@+id/server_host"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/serverHost"
+            android:hint="@string/server_host"
             android:text="mic-dm.tom.ru" />
 
         <EditText
-            android:id="@+id/serverPort"
+            android:id="@+id/server_port"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="@string/serverPort"
+            android:hint="@string/server_port"
             android:inputType="number"
             android:text="80" />
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/serverNeedAuth"
+        android:id="@+id/server_need_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/serverNeedAuth" />
+        android:text="@string/server_need_auth" />
 
     <EditText
-        android:id="@+id/serverUsername"
+        android:id="@+id/server_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/serverUsername"
+        android:hint="@string/server_username"
         android:visibility="gone" />
 
     <EditText
-        android:id="@+id/serverPassword"
+        android:id="@+id/server_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/serverPassword"
+        android:hint="@string/server_password"
         android:inputType="textPassword"
         android:visibility="gone" />
 
     <Button
-        android:id="@+id/serverCreate"
+        android:id="@+id/add_server"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/addServer" />
+        android:text="@string/add_server" />
 
 </LinearLayout>
