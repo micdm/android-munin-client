@@ -27,7 +27,7 @@ public class ServerActivity extends ListActivity {
      */
     protected void _setServer(Bundle bundle) {
         String serverName = bundle.getString("server");
-        _server = ServerList.getInstance().getServer(serverName);
+        _server = ServerList.getInstance().get(serverName);
     }
     
     /**

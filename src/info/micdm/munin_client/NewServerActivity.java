@@ -73,7 +73,7 @@ public class NewServerActivity extends CustomActivity {
      */
     protected void _addServer(Server server) {
         ServerList list = ServerList.getInstance();
-        list.addServer(server);
+        list.add(server);
         list.save();
     }
     

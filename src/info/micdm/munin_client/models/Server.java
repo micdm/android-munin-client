@@ -69,6 +69,20 @@ public class Server {
     }
     
     /**
+     * Возвращает логин.
+     */
+    public String getUsername() {
+        return _username;
+    }
+    
+    /**
+     * Возвращает пароль.
+     */
+    public String getPassword() {
+        return _password;
+    }
+    
+    /**
      * Возвращает ноду.
      */
     public Node getNode(String name) {

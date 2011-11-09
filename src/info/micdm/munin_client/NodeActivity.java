@@ -34,7 +34,7 @@ public class NodeActivity extends CustomActivity {
     protected void _setServerAndNode(Bundle bundle) {
         String serverName = bundle.getString("server");
         String nodeName = bundle.getString("node");
-        _server = ServerList.getInstance().getServer(serverName);
+        _server = ServerList.getInstance().get(serverName);
         _node = _server.getNode(nodeName);
     }
     

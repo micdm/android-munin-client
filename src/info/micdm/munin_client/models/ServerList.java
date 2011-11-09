@@ -25,33 +25,46 @@ public class ServerList {
     /**
      * Список серверов.
      */
-    protected HashMap<String, Server> _servers = new HashMap<String, Server>();
+    protected HashMap<String, Server> _servers;
+    
+    /**
+     * Загружает список серверов из хранилища.
+     */
+    protected void _load() {
+        if (_servers != null) {
+            return;
+        }
+        _servers = new HashMap<String, Server>();
+        new ServerListStore().load(this);
+    }
+    
+    /**
+     * Сохраняет список серверов в хранилище.
+     */
+    public void save() {
+        new ServerListStore().save(this);
+    }
     
     /**
      * Возвращает сервер.
      */
-    public Server getServer(String name) {
+    public Server get(String name) {
+        _load();
         return _servers.get(name);
     }
     
     /**
      * Возвращает список всех серверов.
      */
-    public Collection<Server> getServers() {
+    public Collection<Server> getAll() {
+        _load();
         return _servers.values();
     }
     
     /**
-     * Добавляет сервер в список.
+     * Добавляет сервер в список и сохраняет список.
      */
-    public void addServer(Server server) {
+    public void add(Server server) {
         _servers.put(server.getHost(), server);
-    }
-    
-    /**
-     * Сохраняет список серверов.
-     */
-    public void save() {
-        
     }
 }

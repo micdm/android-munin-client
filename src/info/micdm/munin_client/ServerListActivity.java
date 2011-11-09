@@ -5,7 +5,6 @@ import info.micdm.munin_client.models.ServerList;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +22,7 @@ public class ServerListActivity extends ListActivity {
      */
     protected void _fillList() {
         ArrayAdapter<Server> adapter = new ArrayAdapter<Server>(this, android.R.layout.simple_list_item_1);
-        for (Server server: ServerList.getInstance().getServers()) {
+        for (Server server: ServerList.getInstance().getAll()) {
             adapter.add(server);
         }
         getListView().setAdapter(adapter);
