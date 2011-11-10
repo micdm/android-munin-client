@@ -55,7 +55,7 @@ class NodeListParser {
         element.setElementListener(new ElementListener() {
             @Override
             public void start(Attributes attributes) {
-                _node = new Node(attributes.getValue("domain"), attributes.getValue("name"));
+                _node = new Node(attributes.getValue("name"));
             }
 
             @Override

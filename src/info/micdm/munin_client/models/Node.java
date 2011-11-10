@@ -3,7 +3,6 @@ package info.micdm.munin_client.models;
 import info.micdm.munin_client.reports.Report;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Ведомый сервер ("нода").
@@ -12,11 +11,6 @@ import java.util.Collection;
  */
 public class Node {
 
-    /**
-     * Домен ноды.
-     */
-    protected String _domain;
-    
     /**
      * Название ноды.
      */
@@ -32,21 +26,13 @@ public class Node {
      */
     protected ArrayList<Report> _reports = new ArrayList<Report>();
     
-    public Node(String domain, String name) {
-        _domain = domain;
+    public Node(String name) {
         _name = name;
     }
     
     @Override
     public String toString() {
         return _name;
-    }
-    
-    /**
-     * Возвращает домен ноды.
-     */
-    public String getDomain() {
-        return _domain;
     }
     
     /**
