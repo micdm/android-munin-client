@@ -21,6 +21,7 @@ public class Report {
      *
      */
     public enum Type {
+        IF_ETH0,
         LOAD,
         USERS;
         

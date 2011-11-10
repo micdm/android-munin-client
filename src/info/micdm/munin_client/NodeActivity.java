@@ -11,6 +11,10 @@ import info.micdm.munin_client.reports.Report;
 import info.micdm.munin_client.reports.ReportLoader;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * Экран с информацией о ноде.
@@ -30,6 +34,11 @@ public class NodeActivity extends Activity {
     protected Node _node;
     
     /**
+     * Отображаемый тип отчетов.
+     */
+    protected int _reportTypeIndex = 0;
+    
+    /**
      * Запоминает сервер и ноду для отображения.
      */
     protected void _setServerAndNode(Bundle bundle) {
@@ -42,9 +51,61 @@ public class NodeActivity extends Activity {
     /**
      * Загружает отчет за час.
      */
-    protected void _loadByHour() {
-        Report.Type type = _node.getReportTypes().get(0);
+    protected void _loadByHour(int index) {
+        Report.Type type = _node.getReportTypes().get(index);
         ReportLoader.INSTANCE.load(_server, _node, type, Report.Period.HOUR);
+    }
+    
+    /**
+     * Загружает предыдущий доступный отчет.
+     */
+    protected void _loadPrevious() {
+        if (_reportTypeIndex == 0) {
+            _reportTypeIndex = _node.getReportTypes().size() - 1;
+        } else {
+            _reportTypeIndex -= 1;
+        }
+        _loadByHour(_reportTypeIndex);
+    }
+    
+    /**
+     * Загружает следующий доступный отчет.
+     */
+    protected void _loadNext() {
+        if (_reportTypeIndex >= _node.getReportTypes().size() - 1) {
+            _reportTypeIndex = 0;
+        } else {
+            _reportTypeIndex += 1;
+        }
+        _loadByHour(_reportTypeIndex);
+    }
+    
+    /**
+     * Слушает событие прокрутки, чтобы менять графики.
+     */
+    protected void _listenToFling() {
+        final GestureDetector detector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (velocityX < 0) {
+                    _loadNext();
+                    return true;
+                }
+                if (velocityX > 0) {
+                    _loadPrevious();
+                    return true;
+                }
+                return false;
+            }
+        });
+    
+        findViewById(R.id.graph).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                detector.onTouchEvent(event);
+                return true;
+            }
+        });
     }
     
     @Override
@@ -52,6 +113,7 @@ public class NodeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.node);
         _setServerAndNode(getIntent().getExtras());
+        _listenToFling();
     }
     
     /**
@@ -73,7 +135,7 @@ public class NodeActivity extends Activity {
     public void onResume() {
         super.onResume();
         _addListeners();
-        _loadByHour();
+        _loadByHour(0);
     }
     
     /**
