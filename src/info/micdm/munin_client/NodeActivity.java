@@ -43,7 +43,8 @@ public class NodeActivity extends Activity {
      * Загружает отчет за час.
      */
     protected void _loadByHour() {
-        ReportLoader.INSTANCE.load(_server, _node, Report.Type.LOAD, Report.Period.HOUR);
+        Report.Type type = _node.getReportTypes().get(0);
+        ReportLoader.INSTANCE.load(_server, _node, type, Report.Period.HOUR);
     }
     
     @Override

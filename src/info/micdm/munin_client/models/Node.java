@@ -3,6 +3,7 @@ package info.micdm.munin_client.models;
 import info.micdm.munin_client.reports.Report;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Ведомый сервер ("нода").
@@ -56,24 +57,19 @@ public class Node {
     }
     
     /**
+     * Возвращает список доступных типов отчетов.
+     */
+    public ArrayList<Report.Type> getReportTypes() {
+        return _reportTypes;
+    }
+    
+    /**
      * Добавляет тип отчета.
      */
     public void addReportType(Report.Type reportType) {
         _reportTypes.add(reportType);
     }
-    
-    /**
-     * Добавляет новый отчет в список либо перезаписывает старый такой же.
-     */
-    public void addReport(Report report) {
-        int index = _reports.indexOf(report);
-        if (index == -1) {
-            _reports.add(report);
-        } else {
-            _reports.set(index, report);
-        }
-    }
-    
+
     /**
      * Находит отчет.
      */
@@ -84,5 +80,17 @@ public class Node {
             }
         }
         return null;
+    }
+
+    /**
+     * Добавляет новый отчет в список либо перезаписывает старый такой же.
+     */
+    public void addReport(Report report) {
+        int index = _reports.indexOf(report);
+        if (index == -1) {
+            _reports.add(report);
+        } else {
+            _reports.set(index, report);
+        }
     }
 }
