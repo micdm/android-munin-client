@@ -2,6 +2,7 @@ package info.micdm.munin_client;
 
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.models.ServerList;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +18,7 @@ import android.widget.TextView;
  * @author Mic, 2011
  *
  */
-public class EditServerActivity extends CustomActivity {
+public class EditServerActivity extends Activity {
 
     /**
      * Сервер для редактирования.

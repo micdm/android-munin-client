@@ -33,7 +33,7 @@ public class Server {
     /**
      * Список ведомых серверов.
      */
-    protected HashMap<String, Node> _nodes = new HashMap<String, Node>();
+    protected HashMap<String, Node> _nodes = null;
     
     public Server(String host) {
         this(host, 80);
@@ -99,8 +99,19 @@ public class Server {
     
     /**
      * Возвращает список из всех нод.
+     * Если ноды пока не добавлены, возвращает null.
      */
     public Collection<Node> getNodes() {
-        return _nodes.values();
+        return _nodes == null ? null : _nodes.values();
+    }
+    
+    /**
+     * Добавляет ноду.
+     */
+    public void addNode(Node node) {
+        if (_nodes == null) {
+            _nodes = new HashMap<String, Node>();
+        }
+        _nodes.put(node.getName(), node);
     }
 }

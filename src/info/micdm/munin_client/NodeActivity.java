@@ -9,6 +9,7 @@ import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.models.ServerList;
 import info.micdm.munin_client.reports.Report;
 import info.micdm.munin_client.reports.ReportLoader;
+import android.app.Activity;
 import android.os.Bundle;
 
 /**
@@ -16,7 +17,7 @@ import android.os.Bundle;
  * @author Mic, 2011
  *
  */
-public class NodeActivity extends CustomActivity {
+public class NodeActivity extends Activity {
 
     /**
      * Отображаемый сервер.
@@ -50,10 +51,11 @@ public class NodeActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.node);
         _setServerAndNode(getIntent().getExtras());
-        _loadByHour();
     }
     
-    @Override
+    /**
+     * Добавляет слушатели событий.
+     */
     protected void _addListeners() {
         EventDispatcher.addListener(Event.Type.REPORT_AVAILABLE, new EventListener(this) {
             @Override
@@ -64,5 +66,25 @@ public class NodeActivity extends CustomActivity {
                 view.setReport(report);
             }
         });
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        _addListeners();
+        _loadByHour();
+    }
+    
+    /**
+     * Удаляет все слушатели событий.
+     */
+    protected void _removeListeners() {
+        EventDispatcher.removeAllListeners(this);
+    }
+    
+    @Override
+    public void onPause() {
+        super.onPause();
+        _removeListeners();
     }
 }
