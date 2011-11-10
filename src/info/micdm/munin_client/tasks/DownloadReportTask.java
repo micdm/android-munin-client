@@ -7,16 +7,9 @@ import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.reports.Point;
 import info.micdm.munin_client.reports.Report;
 
-import java.io.IOException;
-
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.message.BasicHttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import android.net.http.AndroidHttpClient;
-import android.os.AsyncTask;
 import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.EndTextElementListener;
@@ -113,11 +106,11 @@ class ReportParser {
 
 
 /**
- * Загрузчик данных.
+ * Загрузчик отчетов.
  * @author Mic, 2011
  *
  */
-public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
+public class DownloadReportTask extends DownloadTask<Void, Void, Report> {
 
     /**
      * Сервер, с которого грузим данные.
@@ -146,33 +139,11 @@ public class DownloadReportTask extends AsyncTask<Void, Void, Report> {
         _period = period;
     }
     
-    /**
-     * Возвращает адрес страницы, которую надо скачать.
-     */
+    @Override
     protected String _getUri() {
         String url = "http://" + _server.getHost() + ":" + _server.getPort();
         String urn = "/munin-export/report/" + _node.getDomain() + "/" + _node.getName() + "/" + _type + "/" + _period + "/";
         return url + urn;
-    }
-    
-    /**
-     * Загружает данные.
-     */
-    protected String _downloadData() {
-        try {
-            String uri = _getUri();
-            Log.d(toString(), "downloading page " + uri);
-            AndroidHttpClient client = AndroidHttpClient.newInstance("Android Munin Client");
-            HttpGet request = new HttpGet(uri);
-            BasicHttpResponse response = (BasicHttpResponse)client.execute(request);
-            String body = EntityUtils.toString(response.getEntity(), "utf8");
-            client.close();
-            Log.d(toString(), "downloaded: " + body.length());
-            return body;
-        } catch (IOException e) {
-            Log.e(toString(), "failed to download page: " + e.toString());
-            return null;
-        }
     }
 
     @Override

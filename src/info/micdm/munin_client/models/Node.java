@@ -22,6 +22,11 @@ public class Node {
     protected String _name;
     
     /**
+     * Список доступных для просмотра типов отчетов.
+     */
+    protected ArrayList<Report.Type> _reportTypes = new ArrayList<Report.Type>();
+    
+    /**
      * Отчеты для ноды.
      */
     protected ArrayList<Report> _reports = new ArrayList<Report>();
@@ -48,6 +53,13 @@ public class Node {
      */
     public String getName() {
         return _name;
+    }
+    
+    /**
+     * Добавляет тип отчета.
+     */
+    public void addReportType(Report.Type reportType) {
+        _reportTypes.add(reportType);
     }
     
     /**

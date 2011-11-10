@@ -13,6 +13,7 @@ public class Event {
      *
      */
     public enum Type {
+        NODE_LIST_LOADED,
         REPORT_LOADED,
         REPORT_AVAILABLE
     }

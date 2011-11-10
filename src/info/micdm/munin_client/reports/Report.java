@@ -28,6 +28,18 @@ public class Report {
         public String toString() {
             return name().toLowerCase();
         }
+        
+        /**
+         * Находит тип отчета по указанному имени.
+         */
+        public static Type getByName(String name) {
+            for (Type type: values()) {
+                if (type.toString().equals(name)) {
+                    return type;
+                }
+            }
+            return null;
+        }
     }
     
     /**
