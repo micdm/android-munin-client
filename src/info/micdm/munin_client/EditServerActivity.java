@@ -141,7 +141,7 @@ public class EditServerActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.server_edit:
+        case R.id.server_save:
             _onAddServer();
             return true;
         default:

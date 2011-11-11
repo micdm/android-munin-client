@@ -11,7 +11,6 @@ import info.micdm.munin_client.reports.Report;
 import info.micdm.munin_client.reports.ReportLoader;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +38,11 @@ public class NodeActivity extends Activity {
     protected int _reportTypeIndex = 0;
     
     /**
+     * Отображаемый период.
+     */
+    protected Report.Period _reportPeriod = Report.Period.HOUR;
+    
+    /**
      * Запоминает сервер и ноду для отображения.
      */
     protected void _setServerAndNode(Bundle bundle) {
@@ -49,35 +53,78 @@ public class NodeActivity extends Activity {
     }
     
     /**
-     * Загружает отчет за час.
+     * Загружает отчет.
      */
-    protected void _loadByHour(int index) {
-        Report.Type type = _node.getReportTypes().get(index);
-        ReportLoader.INSTANCE.load(_server, _node, type, Report.Period.HOUR);
+    protected void _loadReport() {
+        Report.Type type = _node.getReportTypes().get(_reportTypeIndex);
+        ReportLoader.INSTANCE.load(_server, _node, type, _reportPeriod);
     }
     
     /**
      * Загружает предыдущий доступный отчет.
      */
-    protected void _loadPrevious() {
+    protected void _loadPreviousByType() {
         if (_reportTypeIndex == 0) {
             _reportTypeIndex = _node.getReportTypes().size() - 1;
         } else {
             _reportTypeIndex -= 1;
         }
-        _loadByHour(_reportTypeIndex);
+        _loadReport();
     }
     
     /**
      * Загружает следующий доступный отчет.
      */
-    protected void _loadNext() {
+    protected void _loadNextByType() {
         if (_reportTypeIndex >= _node.getReportTypes().size() - 1) {
             _reportTypeIndex = 0;
         } else {
             _reportTypeIndex += 1;
         }
-        _loadByHour(_reportTypeIndex);
+        _loadReport();
+    }
+    
+    /**
+     * Загружает предыдущий доступный отчет.
+     */
+    protected void _loadPreviousByPeriod() {
+        _reportPeriod = (_reportPeriod == Report.Period.HOUR) ? Report.Period.DAY : Report.Period.HOUR;
+        _loadReport();
+    }
+    
+    /**
+     * Загружает следующий доступный отчет.
+     */
+    protected void _loadNextByPeriod() {
+        _reportPeriod = (_reportPeriod == Report.Period.HOUR) ? Report.Period.DAY : Report.Period.HOUR;
+        _loadReport();
+    }
+    
+    /**
+     * Выполняется при событии прокрутки.
+     */
+    protected boolean _onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if (Math.abs(e1.getY() - e2.getY()) < 200) {
+            if (velocityX < 0) {
+                _loadNextByType();
+                return true;
+            }
+            if (velocityX > 0) {
+                _loadPreviousByType();
+                return true;
+            }
+        }
+        if (Math.abs(e1.getX() - e2.getX()) < 200) {
+            if (velocityY < 0) {
+                _loadNextByPeriod();
+                return true;
+            }
+            if (velocityY > 0) {
+                _loadPreviousByPeriod();
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -87,15 +134,7 @@ public class NodeActivity extends Activity {
         final GestureDetector detector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (velocityX < 0) {
-                    _loadNext();
-                    return true;
-                }
-                if (velocityX > 0) {
-                    _loadPrevious();
-                    return true;
-                }
-                return false;
+                return _onFling(e1, e2, velocityX, velocityY);
             }
         });
     
@@ -135,7 +174,7 @@ public class NodeActivity extends Activity {
     public void onResume() {
         super.onResume();
         _addListeners();
-        _loadByHour(0);
+        _loadReport();
     }
     
     /**
