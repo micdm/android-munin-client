@@ -8,8 +8,9 @@
     <string name="server_username">Логин</string>
     <string name="server_password">Пароль</string>
     <string name="server_need_auth">Требует авторизацию</string>
-    <string name="server_add">Сохранить</string>
+    <string name="server_add">Добавить</string>
     <string name="server_edit">Редактировать</string>
+    <string name="server_save">Сохранить</string>
     <string name="server_delete">Удалить</string>
     <string name="no_nodes_found">Ноды не найдены на указанном сервере</string>
 

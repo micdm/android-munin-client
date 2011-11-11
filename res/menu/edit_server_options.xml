@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/server_add"
-        android:title="@string/server_add"
+        android:id="@+id/server_save"
+        android:title="@string/server_save"
         android:icon="@android:drawable/ic_menu_save"></item>
 
 </menu>
