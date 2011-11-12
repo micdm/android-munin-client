@@ -164,12 +164,14 @@ public class NodeActivity extends Activity {
     /**
      * Выполняется, когда отчет станет доступен.
      */
-    protected void _onReportAvailable(Report report) {
-        GraphView view = (GraphView)findViewById(R.id.graph);
-        view.setReport(report);
-        if (_dialog != null) {
-            _dialog.dismiss();
-            _dialog = null;
+    protected void _onReportAvailable(Node node, Report report) {
+        if (_node.equals(node)) {
+            GraphView view = (GraphView)findViewById(R.id.graph);
+            view.setReport(report);
+            if (_dialog != null) {
+                _dialog.dismiss();
+                _dialog = null;
+            }
         }
     }
     
@@ -181,7 +183,7 @@ public class NodeActivity extends Activity {
             @Override
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
-                _onReportAvailable((Report)extra[0]);
+                _onReportAvailable((Node)extra[0], (Report)extra[1]);
             }
         });
     }

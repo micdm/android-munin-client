@@ -34,7 +34,7 @@ public class ReportLoader {
                 Node node = (Node)extra[1];
                 Report report = (Report)extra[2];
                 node.addReport(report);
-                EventDispatcher.dispatch(new Event(Event.Type.REPORT_AVAILABLE, report));
+                EventDispatcher.dispatch(new Event(Event.Type.REPORT_AVAILABLE, node, report));
             }
         });
     }
@@ -48,7 +48,7 @@ public class ReportLoader {
             DownloadReportTask task = new DownloadReportTask(server, node, type, period);
             task.execute();
         } else {
-            EventDispatcher.dispatch(new Event(Event.Type.REPORT_AVAILABLE, report));
+            EventDispatcher.dispatch(new Event(Event.Type.REPORT_AVAILABLE, node, report));
         }
     }
 }
