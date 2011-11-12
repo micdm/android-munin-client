@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Клиент для Munin</string>
+    <string name="app_name">Клиент Munin</string>
     
     <!-- Экран со списком серверов -->
     <string name="no_servers_found">Вы ещё не добавили серверы</string>
