@@ -1,7 +1,12 @@
 package info.micdm.munin_client.reports;
 
+import info.micdm.munin_client.CustomApplication;
+import info.micdm.munin_client.R;
+
 import java.util.ArrayList;
 import java.util.Date;
+
+import android.content.res.Resources;
 
 /**
  * Набор данных для визуализации.
@@ -41,6 +46,22 @@ public class Report {
             }
             return null;
         }
+        
+        /**
+         * Возвращает заголовок.
+         */
+        public String getTitle() {
+            Resources resources = CustomApplication.INSTANCE.getResources();
+            switch (this) {
+            case IF_ETH0:
+                return resources.getString(R.string.report_type_if);
+            case LOAD:
+                return resources.getString(R.string.report_type_load);
+            case USERS:
+                return resources.getString(R.string.report_type_users);
+            }
+            return null;
+        }
     }
     
     /**
@@ -55,6 +76,20 @@ public class Report {
         @Override
         public String toString() {
             return name().toLowerCase();
+        }
+        
+        /**
+         * Возвращает заголовок.
+         */
+        public String getTitle() {
+            Resources resources = CustomApplication.INSTANCE.getResources();
+            switch (this) {
+            case HOUR:
+                return resources.getString(R.string.report_period_hour);
+            case DAY:
+                return resources.getString(R.string.report_period_day);
+            }
+            return null;
         }
     }
     
@@ -92,7 +127,6 @@ public class Report {
         return "report with " + _points.size() + " points";
     }
     
-
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -124,6 +158,14 @@ public class Report {
      */
     public Period getPeriod() {
         return _period;
+    }
+    
+    /**
+     * Возвращает заголовок отчета.
+     */
+    public String getTitle() {
+        Resources resources = CustomApplication.INSTANCE.getResources();
+        return String.format(resources.getString(R.string.report_title), _type.getTitle(), _period.getTitle());
     }
     
     /**

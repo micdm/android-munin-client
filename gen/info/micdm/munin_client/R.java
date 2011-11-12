@@ -40,6 +40,12 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int no_nodes_found=0x7f04000b;
         public static final int no_servers_found=0x7f040001;
+        public static final int report_period_day=0x7f040010;
+        public static final int report_period_hour=0x7f04000f;
+        public static final int report_title=0x7f040011;
+        public static final int report_type_if=0x7f04000c;
+        public static final int report_type_load=0x7f04000d;
+        public static final int report_type_users=0x7f04000e;
         public static final int server_add=0x7f040007;
         public static final int server_delete=0x7f04000a;
         public static final int server_edit=0x7f040008;

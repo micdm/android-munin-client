@@ -22,9 +22,9 @@ import android.graphics.drawable.shapes.Shape;
 class LabelShape extends Shape {
 
     /**
-     * Целевая точка.
+     * Текст
      */
-    protected Point _point;
+    protected String _text;
 
     /**
      * X-координата точки.
@@ -41,8 +41,8 @@ class LabelShape extends Shape {
      */
     protected float _graphWidth;
     
-    public LabelShape(Point point, float x, float y, float graphWidth) {
-        _point= point;
+    public LabelShape(String text, float x, float y, float graphWidth) {
+        _text = text;
         _x = x;
         _y = y;
         _graphWidth = graphWidth;
@@ -79,7 +79,7 @@ class LabelShape extends Shape {
     /**
      * Рисует фон для подписи.
      */
-    protected void _drawBackground(Canvas canvas, String text, float x, float y, float width, float height) {
+    protected void _drawBackground(Canvas canvas, float x, float y, float width, float height) {
         Paint paint = _getBackgroundPaint();
         int padding = 7;
         canvas.drawRoundRect(new RectF(x - padding, y - padding, x + width + padding, y + height + padding), 5, 5, paint);
@@ -99,18 +99,18 @@ class LabelShape extends Shape {
     /**
      * Рисует текст подписи.
      */
-    protected void _drawText(Canvas canvas, String text, float x, float y) {
+    protected void _drawText(Canvas canvas, float x, float y) {
         Paint paint = _getTextPaint();
-        canvas.drawText(text, x, y, paint);
+        canvas.drawText(_text, x, y, paint);
     }
     
     /**
      * Возвращает границы текста.
      */
-    protected Rect _getTextBounds(String text) {
+    protected Rect _getTextBounds() {
         Paint paint = _getTextPaint();
         Rect bounds = new Rect();
-        paint.getTextBounds(text, 0, text.length(), bounds);
+        paint.getTextBounds(_text, 0, _text.length(), bounds);
         return bounds;
     }
     
@@ -136,14 +136,12 @@ class LabelShape extends Shape {
     
     @Override
     public void draw(Canvas canvas, Paint paint) {
-        DecimalFormat formatter = new DecimalFormat("#.###");
-        String text = formatter.format(_point.getValue());
-        Rect bounds = _getTextBounds(text);
+        Rect bounds = _getTextBounds();
         float x = _getTextX(bounds);
         float y = _getTextY(bounds);
         _drawLevel(canvas);
-        _drawBackground(canvas, text, x, y - bounds.height(), bounds.width(), bounds.height());
-        _drawText(canvas, text, x, y);
+        _drawBackground(canvas, x, y - bounds.height(), bounds.width(), bounds.height());
+        _drawText(canvas, x, y);
     }
 }
 
@@ -261,11 +259,22 @@ public class GraphShape extends Shape {
      * Рисует подписи к точкам.
      */
     protected void _drawLabels(Canvas canvas) {
+        DecimalFormat formatter = new DecimalFormat("#.###");
         for (Point point: new Point[] {_report.getStart(), _report.getEnd(), _report.getMin(), _report.getMax()}) {
             int index = point.getNumber() * 2;
-            LabelShape shape = new LabelShape(point, _coords[index], _coords[index + 1], getWidth());
+            String text = formatter.format(point.getValue());
+            LabelShape shape = new LabelShape(text, _coords[index], _coords[index + 1], getWidth());
             shape.draw(canvas, null);
         }
+    }
+    
+    /**
+     * Рисует заголовок к отчету.
+     */
+    protected void _drawTitle(Canvas canvas) {
+        String text = _report.getTitle();
+        LabelShape shape = new LabelShape(text, 0, 0, getWidth());
+        shape.draw(canvas, null);
     }
     
     @Override
@@ -273,5 +282,6 @@ public class GraphShape extends Shape {
         _calculateCoords();
         _drawGraph(canvas);
         _drawLabels(canvas);
+        _drawTitle(canvas);
     }
 }

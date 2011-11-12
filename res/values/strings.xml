@@ -13,5 +13,14 @@
     <string name="server_save">Сохранить</string>
     <string name="server_delete">Удалить</string>
     <string name="no_nodes_found">Ноды не найдены на указанном сервере</string>
+    
+    <string name="report_type_if">трафик</string>
+    <string name="report_type_load">загрузка</string>
+    <string name="report_type_users">пользователи</string>
+    
+    <string name="report_period_hour">час</string>
+    <string name="report_period_day">день</string>
+        
+    <string name="report_title">%1$s за %2$s</string>
 
 </resources>
