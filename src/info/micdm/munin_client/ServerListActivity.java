@@ -1,19 +1,90 @@
 package info.micdm.munin_client;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import info.micdm.munin_client.data.Server;
 import info.micdm.munin_client.data.ServerList;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+/**
+ * Диалог для добавления и редактирования сервера.
+ * @author Mic, 2011
+ *
+ */
+class EditServerDialogBuilder {
+
+    /**
+     * Интерфейс для обработчика.
+     * @author Mic, 2011
+     *
+     */
+    public interface OnSaveListener {
+        public void onSave(String text);
+    }
+    
+    /**
+     * Возвращает текстовое поле.
+     */
+    protected TextView _getTextView(Context context) {
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return (TextView)inflater.inflate(R.layout.edit_server, null);
+    }
+    
+    /**
+     * Добавляет кнопку.
+     */
+    protected DialogInterface.OnClickListener _getClickListener(final TextView textField, final OnSaveListener listener) {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String text = textField.getText().toString();
+                listener.onSave(text);
+            }
+        };
+    }
+    
+    /**
+     * Создает и показывает диалог.
+     */
+    public void show(Context context, OnSaveListener listener) {
+        show(context, listener, null);
+    }
+    
+    /**
+     * Создает и показывает диалог.
+     */
+    public void show(Context context, OnSaveListener listener, String text) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        TextView textField = _getTextView(context);
+        if (text != null) {
+            textField.setText(text);
+        }
+        builder.setView(textField);
+        DialogInterface.OnClickListener onClick = _getClickListener(textField, listener);
+        builder.setPositiveButton(R.string.server_save, onClick);
+        builder.show();
+    }
+}
+
 
 /**
  * Экран со списком доступных серверов.
@@ -37,8 +108,19 @@ public class ServerListActivity extends ListActivity {
      * Выполняется, когда пользователь хочет добавить новый сервер.
      */
     protected void _onAddNewServer() {
-        Intent intent = new Intent(this, EditServerActivity.class);
-        startActivity(intent);
+        EditServerDialogBuilder builder = new EditServerDialogBuilder();
+        builder.show(this, new EditServerDialogBuilder.OnSaveListener() {
+            @Override
+            public void onSave(String text) {
+                try {
+                    URI uri = new URI(text);
+                    ServerList.INSTANCE.add(new Server(uri));
+                    _fillList();
+                } catch (URISyntaxException e) {
+                
+                }
+            }
+        });
     }
     
     /**
@@ -65,10 +147,21 @@ public class ServerListActivity extends ListActivity {
     /**
      * Выполняется, когда пользователь хочет отредактировать сервер.
      */
-    protected void _onEditServer(Server server) {
-        Intent intent = new Intent(this, EditServerActivity.class);
-        intent.putExtra("server", server.getName());
-        startActivity(intent);
+    protected void _onEditServer(final Server server) {
+        EditServerDialogBuilder builder = new EditServerDialogBuilder();
+        builder.show(this, new EditServerDialogBuilder.OnSaveListener() {
+            @Override
+            public void onSave(String text) {
+                try {
+                    URI uri = new URI(text);
+                    ServerList.INSTANCE.delete(server);
+                    ServerList.INSTANCE.add(new Server(uri));
+                    _fillList();
+                } catch (URISyntaxException e) {
+                
+                }
+            }
+        }, server.getUri().toString());
     }
     
     /**

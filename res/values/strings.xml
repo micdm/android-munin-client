@@ -5,8 +5,6 @@
     
     <!-- Экран со списком серверов -->
     <string name="no_servers_found">Вы ещё не добавили серверы</string>
-    
-    <!-- Экран для редактирования сервера -->
     <string name="server_uri">http://username:password@example.org:80/munin-export/</string>
     
     <!-- Пункты меню -->
@@ -14,6 +12,7 @@
     <string name="server_edit">Редактировать</string>
     <string name="server_save">Сохранить</string>
     <string name="server_delete">Удалить</string>
+    <string name="server_cancel">Отмена</string>
     
     <!-- Экран со списком нод -->
     <string name="no_nodes_found">Ноды не найдены на указанном сервере</string>
