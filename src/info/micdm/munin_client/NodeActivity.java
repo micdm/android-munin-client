@@ -104,7 +104,7 @@ public class NodeActivity extends Activity {
      * Выполняется при событии прокрутки.
      */
     protected boolean _onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (Math.abs(e1.getY() - e2.getY()) < 200) {
+        if (Math.abs(velocityX) > Math.abs(velocityY)) {
             if (velocityX < 0) {
                 _loadNextByType();
                 return true;
@@ -113,8 +113,7 @@ public class NodeActivity extends Activity {
                 _loadPreviousByType();
                 return true;
             }
-        }
-        if (Math.abs(e1.getX() - e2.getX()) < 200) {
+        } else {
             if (velocityY < 0) {
                 _loadNextByPeriod();
                 return true;
