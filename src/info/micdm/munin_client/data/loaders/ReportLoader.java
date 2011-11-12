@@ -1,10 +1,13 @@
-package info.micdm.munin_client.reports;
+package info.micdm.munin_client.data.loaders;
 
+import info.micdm.munin_client.data.Node;
+import info.micdm.munin_client.data.Report;
+import info.micdm.munin_client.data.Server;
+import info.micdm.munin_client.data.Report.Period;
+import info.micdm.munin_client.data.Report.Type;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
-import info.micdm.munin_client.models.Node;
-import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.tasks.DownloadReportTask;
 
 /**

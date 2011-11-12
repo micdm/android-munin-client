@@ -1,7 +1,7 @@
 package info.micdm.munin_client;
 
-import info.micdm.munin_client.models.Server;
-import info.micdm.munin_client.models.ServerList;
+import info.micdm.munin_client.data.Server;
+import info.micdm.munin_client.data.ServerList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,6 +1,8 @@
-package info.micdm.munin_client.models;
+package info.micdm.munin_client.data.stores;
 
 import info.micdm.munin_client.CustomApplication;
+import info.micdm.munin_client.data.Server;
+import info.micdm.munin_client.data.ServerList;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package info.micdm.munin_client.reports;
+package info.micdm.munin_client.data;
 
 import info.micdm.munin_client.CustomApplication;
 import info.micdm.munin_client.R;

@@ -1,7 +1,7 @@
 package info.micdm.munin_client.graph;
 
-import info.micdm.munin_client.reports.Point;
-import info.micdm.munin_client.reports.Report;
+import info.micdm.munin_client.data.Point;
+import info.micdm.munin_client.data.Report;
 
 import java.text.DecimalFormat;
 

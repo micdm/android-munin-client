@@ -1,4 +1,4 @@
-package info.micdm.munin_client.reports;
+package info.micdm.munin_client.data;
 
 
 /**

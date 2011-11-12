@@ -1,12 +1,12 @@
 package info.micdm.munin_client;
 
+import info.micdm.munin_client.data.Node;
+import info.micdm.munin_client.data.Server;
+import info.micdm.munin_client.data.ServerList;
+import info.micdm.munin_client.data.loaders.NodeListLoader;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
-import info.micdm.munin_client.models.Node;
-import info.micdm.munin_client.models.NodeListLoader;
-import info.micdm.munin_client.models.Server;
-import info.micdm.munin_client.models.ServerList;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;

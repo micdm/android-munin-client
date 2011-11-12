@@ -1,5 +1,7 @@
-package info.micdm.munin_client.models;
+package info.micdm.munin_client.data.loaders;
 
+import info.micdm.munin_client.data.Node;
+import info.micdm.munin_client.data.Server;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;

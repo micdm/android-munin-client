@@ -1,14 +1,14 @@
 package info.micdm.munin_client;
 
+import info.micdm.munin_client.data.Node;
+import info.micdm.munin_client.data.Report;
+import info.micdm.munin_client.data.Server;
+import info.micdm.munin_client.data.ServerList;
+import info.micdm.munin_client.data.loaders.ReportLoader;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
 import info.micdm.munin_client.graph.GraphView;
-import info.micdm.munin_client.models.Node;
-import info.micdm.munin_client.models.Server;
-import info.micdm.munin_client.models.ServerList;
-import info.micdm.munin_client.reports.Report;
-import info.micdm.munin_client.reports.ReportLoader;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;

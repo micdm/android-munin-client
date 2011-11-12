@@ -1,10 +1,10 @@
 package info.micdm.munin_client.tasks;
 
+import info.micdm.munin_client.data.Node;
+import info.micdm.munin_client.data.Report;
+import info.micdm.munin_client.data.Server;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
-import info.micdm.munin_client.models.Node;
-import info.micdm.munin_client.models.Server;
-import info.micdm.munin_client.reports.Report;
 
 import java.util.ArrayList;
 

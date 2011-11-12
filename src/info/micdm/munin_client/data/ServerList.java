@@ -1,4 +1,6 @@
-package info.micdm.munin_client.models;
+package info.micdm.munin_client.data;
+
+import info.micdm.munin_client.data.stores.ServerListStore;
 
 import java.util.Collection;
 import java.util.HashMap;
