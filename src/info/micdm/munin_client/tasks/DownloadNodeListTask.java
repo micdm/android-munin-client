@@ -101,9 +101,7 @@ public class DownloadNodeListTask extends DownloadTask<Void, Void, ArrayList<Nod
     
     @Override
     protected String _getUri() {
-        String url = "http://foo:bar@" + _server.getHost() + ":" + _server.getPort();
-        String urn = "/munin-export/nodes/";
-        return url + urn;
+        return _server.getUri() + "/nodes/";
     }
 
     @Override

@@ -141,9 +141,7 @@ public class DownloadReportTask extends DownloadTask<Void, Void, Report> {
     
     @Override
     protected String _getUri() {
-        String url = "http://" + _server.getHost() + ":" + _server.getPort();
-        String urn = "/munin-export/report/" + _node.getName() + "/" + _type + "/" + _period + "/";
-        return url + urn;
+        return _server.getUri() + "/report/" + _node.getName() + "/" + _type + "/" + _period + "/";
     }
 
     @Override

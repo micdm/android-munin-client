@@ -1,5 +1,6 @@
 package info.micdm.munin_client.data;
 
+import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -11,83 +12,36 @@ import java.util.HashMap;
 public class Server {
 
     /**
-     * Имя хоста сервера.
+     * Адрес, где находится экспортер.
      */
-    protected String _host;
-    
-    /**
-     * Порт сервера.
-     */
-    protected int _port;
-    
-    /**
-     * Имя пользователя.
-     */
-    protected String _username;
-    
-    /**
-     * Пароль.
-     */
-    protected String _password;
+    protected URI _uri;
     
     /**
      * Список ведомых серверов.
      */
     protected HashMap<String, Node> _nodes = null;
     
-    public Server(String host) {
-        this(host, 80);
-    }
-    
-    public Server(String host, int port) {
-        this(host, port, null, null);
-    }
-
-    public Server(String host, int port, String username, String password) {
-        _host = host;
-        _port = port;
-        _username = username;
-        _password = password;
+    public Server(URI uri) {
+        _uri = uri;
     }
 
     @Override
     public String toString() {
-        return _host + ":" + _port;
+        return _uri.toString();
     }
     
     /**
-     * Возвращает хост.
+     * Возвращает URI.
      */
-    public String getHost() {
-        return _host;
-    }
-    
-    /**
-     * Возвращает порт.
-     */
-    public int getPort() {
-        return _port;
-    }
-    
-    /**
-     * Возвращает логин.
-     */
-    public String getUsername() {
-        return _username;
-    }
-    
-    /**
-     * Возвращает пароль.
-     */
-    public String getPassword() {
-        return _password;
+    public URI getUri() {
+        return _uri;
     }
     
     /**
      * Возвращает имя сервера.
      */
     public String getName() {
-        return _host + ":" + _port;
+        return _uri.toString();
     }
     
     /**

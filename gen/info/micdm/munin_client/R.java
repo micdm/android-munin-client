@@ -14,16 +14,12 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int graph=0x7f060005;
-        public static final int server_add=0x7f060009;
-        public static final int server_delete=0x7f060008;
-        public static final int server_edit=0x7f060007;
-        public static final int server_host=0x7f060000;
-        public static final int server_need_auth=0x7f060002;
-        public static final int server_password=0x7f060004;
-        public static final int server_port=0x7f060001;
-        public static final int server_save=0x7f060006;
-        public static final int server_username=0x7f060003;
+        public static final int graph=0x7f060001;
+        public static final int server_add=0x7f060005;
+        public static final int server_delete=0x7f060004;
+        public static final int server_edit=0x7f060003;
+        public static final int server_save=0x7f060002;
+        public static final int server_uri=0x7f060000;
     }
     public static final class layout {
         public static final int edit_server=0x7f030000;
@@ -38,36 +34,32 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int dialog_loading_nodes=0x7f04000c;
+        public static final int dialog_loading_nodes=0x7f040008;
         /**  Экран с отчётом 
          */
-        public static final int dialog_loading_report=0x7f04000d;
+        public static final int dialog_loading_report=0x7f040009;
         /**  Экран со списком нод 
          */
-        public static final int no_nodes_found=0x7f04000b;
+        public static final int no_nodes_found=0x7f040007;
         /**  Экран со списком серверов 
          */
         public static final int no_servers_found=0x7f040001;
-        public static final int report_period_day=0x7f040012;
-        public static final int report_period_hour=0x7f040011;
-        public static final int report_title=0x7f040013;
+        public static final int report_period_day=0x7f04000e;
+        public static final int report_period_hour=0x7f04000d;
+        public static final int report_title=0x7f04000f;
         /**  Для отчётов 
          */
-        public static final int report_type_if=0x7f04000e;
-        public static final int report_type_load=0x7f04000f;
-        public static final int report_type_users=0x7f040010;
+        public static final int report_type_if=0x7f04000a;
+        public static final int report_type_load=0x7f04000b;
+        public static final int report_type_users=0x7f04000c;
         /**  Пункты меню 
          */
-        public static final int server_add=0x7f040007;
-        public static final int server_delete=0x7f04000a;
-        public static final int server_edit=0x7f040008;
+        public static final int server_add=0x7f040003;
+        public static final int server_delete=0x7f040006;
+        public static final int server_edit=0x7f040004;
+        public static final int server_save=0x7f040005;
         /**  Экран для редактирования сервера 
          */
-        public static final int server_host=0x7f040002;
-        public static final int server_need_auth=0x7f040004;
-        public static final int server_password=0x7f040006;
-        public static final int server_port=0x7f040003;
-        public static final int server_save=0x7f040009;
-        public static final int server_username=0x7f040005;
+        public static final int server_uri=0x7f040002;
     }
 }

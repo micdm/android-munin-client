@@ -2,15 +2,17 @@ package info.micdm.munin_client;
 
 import info.micdm.munin_client.data.Server;
 import info.micdm.munin_client.data.ServerList;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 /**
@@ -27,20 +29,6 @@ public class EditServerActivity extends Activity {
     protected Server _server;
     
     /**
-     * Задает текст.
-     */
-    protected void _setInputText(int id, String text) {
-        ((TextView)findViewById(id)).setText(text);
-    }
-    
-    /**
-     * Возвращает введенный текст.
-     */
-    protected String _getInputText(int id) {
-        return ((TextView)findViewById(id)).getText().toString();
-    }
-    
-    /**
      * Запоминает сервер для редактирования.
      */
     protected void _setServer(Bundle bundle) {
@@ -49,54 +37,21 @@ public class EditServerActivity extends Activity {
         }
         String serverName = bundle.getString("server");
         _server = ServerList.INSTANCE.get(serverName);
-        _setInputText(R.id.server_host, _server.getHost());
-        _setInputText(R.id.server_port, String.valueOf(_server.getPort()));
-        _setInputText(R.id.server_username, _server.getUsername());
-        _setInputText(R.id.server_password, _server.getPassword());
-    }
-    
-    /**
-     * Вызывается при переключении флажка.
-     */
-    protected void _onNeedAuthChanged(boolean isChecked) {
-        int visibility = isChecked ? View.VISIBLE : View.GONE;
-        findViewById(R.id.server_username).setVisibility(visibility);
-        findViewById(R.id.server_password).setVisibility(visibility);
-    }
-    
-    /**
-     * Слушает клик по чекбоксу "Авторизовать".
-     */
-    protected void _listenToNeedAuthChanged() {
-        CheckBox needAuth = (CheckBox)findViewById(R.id.server_need_auth);
-        needAuth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                _onNeedAuthChanged(isChecked);
-            }
-        });
+        ((TextView)findViewById(R.id.server_uri)).setText(_server.getUri().toString());
     }
     
     /**
      * Формирует объект нового сервера по введенным данным.
      */
-    protected Server _getNewServer() {
-        String host = _getInputText(R.id.server_host);
-        String port = _getInputText(R.id.server_port);
-        if (host.length() == 0 || port.length() == 0) {
+    protected Server _getServer() {
+        String input = ((TextView)findViewById(R.id.server_uri)).getText().toString();
+        try {
+            URI uri = new URI(input);
+            return new Server(uri);
+        } catch (URISyntaxException e) {
+            Log.d(toString(), e.toString());
             return null;
         }
-        String username = null;
-        String password = null;
-        CheckBox needAuth = (CheckBox)findViewById(R.id.server_need_auth);
-        if (needAuth.isChecked()) {
-            username = _getInputText(R.id.server_username);
-            password = _getInputText(R.id.server_password);
-            if (username.length() == 0 || password.length() == 0) {
-                return null;
-            }
-        }
-        return new Server(host, Integer.parseInt(port), username, password);
     }
     
     /**
@@ -111,7 +66,7 @@ public class EditServerActivity extends Activity {
      * Вызывается для добавления нового сервера.
      */
     protected void _onAddServer() {
-        Server server = _getNewServer();
+        Server server = _getServer();
         if (server != null) {
             if (_server != null) {
                 ServerList.INSTANCE.delete(_server);
@@ -128,7 +83,6 @@ public class EditServerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_server);
         _setServer(getIntent().getExtras());
-        _listenToNeedAuthChanged();
     }
     
     @Override

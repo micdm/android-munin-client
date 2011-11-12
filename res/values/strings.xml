@@ -7,11 +7,7 @@
     <string name="no_servers_found">Вы ещё не добавили серверы</string>
     
     <!-- Экран для редактирования сервера -->
-    <string name="server_host">Хост</string>
-    <string name="server_port">Порт</string>
-    <string name="server_need_auth">Требует авторизацию</string>
-    <string name="server_username">Логин</string>
-    <string name="server_password">Пароль</string>
+    <string name="server_uri">http://username:password@example.org:80/munin-export/</string>
     
     <!-- Пункты меню -->
     <string name="server_add">Добавить</string>
