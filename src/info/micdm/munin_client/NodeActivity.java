@@ -10,6 +10,7 @@ import info.micdm.munin_client.models.ServerList;
 import info.micdm.munin_client.reports.Report;
 import info.micdm.munin_client.reports.ReportLoader;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -43,6 +44,11 @@ public class NodeActivity extends Activity {
     protected Report.Period _reportPeriod = Report.Period.HOUR;
     
     /**
+     * Сообщение, что данные загружаются.
+     */
+    protected ProgressDialog _dialog;
+    
+    /**
      * Запоминает сервер и ноду для отображения.
      */
     protected void _setServerAndNode(Bundle bundle) {
@@ -56,6 +62,7 @@ public class NodeActivity extends Activity {
      * Загружает отчет.
      */
     protected void _loadReport() {
+        _dialog = ProgressDialog.show(this, "", getResources().getString(R.string.dialog_loading_report));
         Report.Type type = _node.getReportTypes().get(_reportTypeIndex);
         ReportLoader.INSTANCE.load(_server, _node, type, _reportPeriod);
     }
@@ -155,6 +162,18 @@ public class NodeActivity extends Activity {
     }
     
     /**
+     * Выполняется, когда отчет станет доступен.
+     */
+    protected void _onReportAvailable(Report report) {
+        GraphView view = (GraphView)findViewById(R.id.graph);
+        view.setReport(report);
+        if (_dialog != null) {
+            _dialog.dismiss();
+            _dialog = null;
+        }
+    }
+    
+    /**
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
@@ -162,9 +181,7 @@ public class NodeActivity extends Activity {
             @Override
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
-                Report report = (Report)extra[0];
-                GraphView view = (GraphView)findViewById(R.id.graph);
-                view.setReport(report);
+                _onReportAvailable((Report)extra[0]);
             }
         });
     }

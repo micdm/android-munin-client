@@ -8,6 +8,7 @@ import info.micdm.munin_client.models.NodeListLoader;
 import info.micdm.munin_client.models.Server;
 import info.micdm.munin_client.models.ServerList;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,11 @@ public class ServerActivity extends ListActivity {
      * Отображаемый сервер.
      */
     protected Server _server;
+    
+    /**
+     * Сообщение, что данные загружаются.
+     */
+    protected ProgressDialog _dialog;
     
     /**
      * Запоминает сервер, который надо отобразить.
@@ -71,6 +77,7 @@ public class ServerActivity extends ListActivity {
      * Загружает список нод.
      */
     protected void _loadNodeList() {
+        _dialog = ProgressDialog.show(this, "", getResources().getString(R.string.dialog_loading_nodes));
         NodeListLoader.INSTANCE.load(_server);
     }
     
@@ -83,6 +90,19 @@ public class ServerActivity extends ListActivity {
     }
     
     /**
+     * Выполняется, когда список нод становится доступным для некоторого сервера.
+     */
+    protected void _onNodeListAvailable(Server server) {
+        if (_server.equals(server)) {
+            _fillList();
+            if (_dialog != null) {
+                _dialog.dismiss();
+                _dialog = null;
+            }
+        }
+    }
+    
+    /**
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
@@ -90,10 +110,7 @@ public class ServerActivity extends ListActivity {
             @Override
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
-                Server server = (Server)extra[0];
-                if (_server.equals(server)) {
-                    _fillList();
-                }
+                _onNodeListAvailable((Server)extra[0]);
             }
         });
     }

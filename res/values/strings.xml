@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Munin Client</string>
+    <string name="app_name">Клиент для Munin</string>
+    
+    <!-- Экран со списком серверов -->
     <string name="no_servers_found">Вы ещё не добавили серверы</string>
-    <string name="server_port">Порт</string>
+    
+    <!-- Экран для редактирования сервера -->
     <string name="server_host">Хост</string>
+    <string name="server_port">Порт</string>
+    <string name="server_need_auth">Требует авторизацию</string>
     <string name="server_username">Логин</string>
     <string name="server_password">Пароль</string>
-    <string name="server_need_auth">Требует авторизацию</string>
+    
+    <!-- Пункты меню -->
     <string name="server_add">Добавить</string>
     <string name="server_edit">Редактировать</string>
     <string name="server_save">Сохранить</string>
     <string name="server_delete">Удалить</string>
-    <string name="no_nodes_found">Ноды не найдены на указанном сервере</string>
     
+    <!-- Экран со списком нод -->
+    <string name="no_nodes_found">Ноды не найдены на указанном сервере</string>
+    <string name="dialog_loading_nodes">Загружается список нод</string>
+    
+    <!-- Экран с отчётом -->
+    <string name="dialog_loading_report">Загружается отчёт</string>
+    
+    <!-- Для отчётов -->
     <string name="report_type_if">трафик</string>
     <string name="report_type_load">загрузка</string>
     <string name="report_type_users">пользователи</string>
-    
     <string name="report_period_hour">час</string>
     <string name="report_period_day">день</string>
-        
     <string name="report_title">%1$s за %2$s</string>
 
 </resources>
