@@ -1,10 +1,11 @@
 package info.micdm.munin_client;
 
+import info.micdm.munin_client.data.Server;
+import info.micdm.munin_client.data.ServerList;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import info.micdm.munin_client.data.Server;
-import info.micdm.munin_client.data.ServerList;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -18,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -115,6 +115,7 @@ public class ServerListActivity extends ListActivity {
                 try {
                     URI uri = new URI(text);
                     ServerList.INSTANCE.add(new Server(uri));
+                    ServerList.INSTANCE.save();
                     _fillList();
                 } catch (URISyntaxException e) {
                 
@@ -156,6 +157,7 @@ public class ServerListActivity extends ListActivity {
                     URI uri = new URI(text);
                     ServerList.INSTANCE.delete(server);
                     ServerList.INSTANCE.add(new Server(uri));
+                    ServerList.INSTANCE.save();
                     _fillList();
                 } catch (URISyntaxException e) {
                 
