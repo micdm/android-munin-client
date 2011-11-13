@@ -21,7 +21,7 @@ import android.content.Context;
 import android.sax.Element;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
-import android.util.Log;
+import info.micdm.utils.Log;
 import android.util.Xml;
 
 /**
@@ -55,7 +55,9 @@ class ServerListReader {
                     URI uri = new URI(uriValue);
                     _serverList.add(new Server(uri));
                 } catch (URISyntaxException e) {
-                    Log.w(toString(), "can not parse uri " + uriValue);
+                    if (Log.isEnabled) {
+                        Log.error("can not parse uri " + uriValue, e);
+                    }
                 }
             }
         });
@@ -80,9 +82,13 @@ class ServerListReader {
             FileInputStream stream = _getStream(filename);
             _parseXml(stream);
         } catch (IOException e) {
-            Log.e(toString(), e.toString());
+            if (Log.isEnabled) {
+                Log.error("IO error", e);
+            }
         } catch (SAXException e) {
-            Log.e(toString(), e.toString());
+            if (Log.isEnabled) {
+                Log.error("parsing error", e);
+            }
         }
     }
 }
@@ -132,7 +138,9 @@ class ServerListWriter {
             FileOutputStream stream = _getStream(filename);
             _writeXml(serverList, stream);
         } catch (IOException e) {
-            Log.e(toString(), e.toString());
+            if (Log.isEnabled) {
+                Log.error("IO error", e);
+            }
         }
     }
 }

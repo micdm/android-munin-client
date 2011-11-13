@@ -8,7 +8,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
-import android.util.Log;
+import info.micdm.utils.Log;
 
 /**
  * Абстрактный загрузчик данных с веб-сервера.
@@ -28,16 +28,22 @@ public abstract class DownloadTask<Params, Progress, Result> extends AsyncTask<P
     protected String _downloadData() {
         try {
             String uri = _getUri();
-            Log.d(toString(), "downloading page " + uri);
+            if (Log.isEnabled) {
+                Log.debug("downloading page " + uri);
+            }
             AndroidHttpClient client = AndroidHttpClient.newInstance("Android Munin Client");
             HttpGet request = new HttpGet(uri);
             BasicHttpResponse response = (BasicHttpResponse)client.execute(request);
             String body = EntityUtils.toString(response.getEntity(), "utf8");
             client.close();
-            Log.d(toString(), "downloaded: " + body.length());
+            if (Log.isEnabled) {
+                Log.debug("downloaded: " + body.length());
+            }
             return body;
         } catch (IOException e) {
-            Log.e(toString(), "failed to download page: " + e.toString());
+            if (Log.isEnabled) {
+                Log.error("failed to download page: " + e.toString());
+            }
             return null;
         }
     }

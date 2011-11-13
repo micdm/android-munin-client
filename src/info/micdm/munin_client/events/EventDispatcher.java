@@ -3,7 +3,7 @@ package info.micdm.munin_client.events;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.util.Log;
+import info.micdm.utils.Log;
 
 /**
  * Диспетчер событий. Следит за рассылкой, подпиской и отпиской.
@@ -21,7 +21,9 @@ public class EventDispatcher {
      * Рассылает событие.
      */
     public static void dispatch(Event event) {
-        Log.d("", "dispatching event " + event.getType());
+        if (Log.isEnabled) {
+            Log.debug("dispatching event " + event.getType());
+        }
         ArrayList<EventListener> listeners = _listeners.get(event.getType());
         if (listeners != null) {
             for (EventListener listener: listeners) {
@@ -54,7 +56,9 @@ public class EventDispatcher {
      */
     public static void removeListener(Object recipient, Event.Type event) {
         if (!_listeners.containsKey(event)) {
-            Log.w("", "no listeners for event " + event);
+            if (Log.isEnabled) {
+                Log.warning("no listeners for event " + event);
+            }
         } else {
             int hash = EventListener.getRecipientHash(recipient);
             _removeListenersByRecipientHash(event, hash);

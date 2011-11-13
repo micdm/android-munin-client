@@ -1,5 +1,6 @@
 package info.micdm.munin_client;
 
+import info.micdm.utils.Log;
 import android.app.Application;
 
 /**
@@ -18,5 +19,6 @@ public class CustomApplication extends Application {
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
+        Log.init("munin_client", true);
     }
 }

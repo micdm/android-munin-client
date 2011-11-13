@@ -15,7 +15,7 @@ import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
-import android.util.Log;
+import info.micdm.utils.Log;
 import android.util.Xml;
 
 /**
@@ -78,7 +78,9 @@ class NodeListParser {
             Xml.parse(data, nodesElement.getContentHandler());
             return _nodes;
         } catch (SAXException e) {
-            Log.e(toString(), "can not parse data: " + e.toString());
+            if (Log.isEnabled) {
+                Log.error("can not parse data: " + e.toString());
+            }
             throw new RuntimeException("can not parse data");
         }
     }
@@ -115,7 +117,9 @@ public class DownloadNodeListTask extends DownloadTask<Void, Void, ArrayList<Nod
         NodeListParser parser = new NodeListParser();
         try {
             ArrayList<Node> nodes = parser.parse(data);
-            Log.d(toString(), "parsed: " + nodes.toString());
+            if (Log.isEnabled) {
+                Log.debug("parsed: " + nodes.toString());
+            }
             return nodes;
         } catch (RuntimeException e) {
             return null;

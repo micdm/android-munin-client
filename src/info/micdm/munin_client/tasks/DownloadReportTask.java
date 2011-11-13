@@ -14,7 +14,7 @@ import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.RootElement;
-import android.util.Log;
+import info.micdm.utils.Log;
 import android.util.Xml;
 
 /**
@@ -99,7 +99,9 @@ class ReportParser {
             RootElement root = _setupRootElement();
             Xml.parse(data, root.getContentHandler());
         } catch (SAXException e) {
-            Log.e(toString(), "can not parse data: " + e.toString());
+            if (Log.isEnabled) {
+                Log.error("can not parse data: " + e.toString());
+            }
             throw new RuntimeException("can not parse data");
         }
     }
@@ -155,7 +157,9 @@ public class DownloadReportTask extends DownloadTask<Void, Void, Report> {
         try {
             Report report = new Report(_type, _period);
             parser.parse(report, data);
-            Log.d(toString(), "parsed: " + report);
+            if (Log.isEnabled) {
+                Log.debug("parsed: " + report);
+            }
             return report;
         } catch (RuntimeException e) {
             return null;
