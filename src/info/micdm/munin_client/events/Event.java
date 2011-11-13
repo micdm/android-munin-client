@@ -15,8 +15,10 @@ public class Event {
     public enum Type {
         NODE_LIST_LOADED,
         NODE_LIST_AVAILABLE,
+        NODE_LIST_NOT_AVAILABLE,
         REPORT_LOADED,
-        REPORT_AVAILABLE
+        REPORT_AVAILABLE,
+        REPORT_NOT_AVAILABLE
     }
     
     /**

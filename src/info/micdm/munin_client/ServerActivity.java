@@ -7,6 +7,7 @@ import info.micdm.munin_client.data.loaders.NodeListLoader;
 import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -103,6 +104,23 @@ public class ServerActivity extends ListActivity {
     }
     
     /**
+     * Выполняется, когда не получается загрузить список нод.
+     */
+    protected void _onNodeListNotAvailable(Server server) {
+        if (_server.equals(server)) {
+            if (_dialog != null) {
+                _dialog.dismiss();
+                _dialog = null;
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.data_not_available_title);
+            builder.setMessage(R.string.data_not_available_message);
+            builder.setPositiveButton(R.string.data_not_available_ok, null);
+            builder.show();
+        }
+    }
+    
+    /**
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
@@ -111,6 +129,13 @@ public class ServerActivity extends ListActivity {
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
                 _onNodeListAvailable((Server)extra[0]);
+            }
+        });
+        EventDispatcher.addListener(Event.Type.NODE_LIST_NOT_AVAILABLE, new EventListener(this) {
+            @Override
+            public void notify(Event event) {
+                Object[] extra = event.getExtra();
+                _onNodeListNotAvailable((Server)extra[0]);
             }
         });
     }

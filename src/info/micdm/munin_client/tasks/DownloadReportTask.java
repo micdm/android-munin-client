@@ -93,13 +93,14 @@ class ReportParser {
     /**
      * Парсит данные, заполняет отчет.
      */
-    public void parse(Report report, String data) {
+    public void parse(Report report, String data) throws RuntimeException {
         try {
             _report = report;
             RootElement root = _setupRootElement();
             Xml.parse(data, root.getContentHandler());
         } catch (SAXException e) {
             Log.e(toString(), "can not parse data: " + e.toString());
+            throw new RuntimeException("can not parse data");
         }
     }
 }
@@ -151,10 +152,14 @@ public class DownloadReportTask extends DownloadTask<Void, Void, Report> {
             return null;
         }
         ReportParser parser = new ReportParser();
-        Report report = new Report(_type, _period);
-        parser.parse(report, data);
-        Log.d(toString(), "parsed: " + report);
-        return report;
+        try {
+            Report report = new Report(_type, _period);
+            parser.parse(report, data);
+            Log.d(toString(), "parsed: " + report);
+            return report;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
     
     @Override

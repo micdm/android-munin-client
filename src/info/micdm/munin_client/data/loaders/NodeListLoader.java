@@ -26,6 +26,20 @@ public class NodeListLoader {
     }
     
     /**
+     * Выполняется, когда список нод загрузится.
+     */
+    protected void _onNodeListLoaded(Server server, ArrayList<Node> nodes) {
+        if (nodes == null) {
+            EventDispatcher.dispatch(new Event(Event.Type.NODE_LIST_NOT_AVAILABLE, server));
+        } else {
+            for (Node node: nodes) {
+                server.addNode(node);
+            }
+            EventDispatcher.dispatch(new Event(Event.Type.NODE_LIST_AVAILABLE, server));
+        }
+    }
+    
+    /**
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
@@ -33,12 +47,7 @@ public class NodeListLoader {
             @Override
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
-                Server server = (Server)extra[0];
-                ArrayList<Node> nodes = (ArrayList<Node>)extra[1];
-                for (Node node: nodes) {
-                    server.addNode(node);
-                }
-                EventDispatcher.dispatch(new Event(Event.Type.NODE_LIST_AVAILABLE, server));
+                _onNodeListLoaded((Server)extra[0], (ArrayList<Node>)extra[1]);
             }
         });
     }

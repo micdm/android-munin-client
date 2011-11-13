@@ -21,6 +21,11 @@
     <!-- Экран с отчётом -->
     <string name="dialog_loading_report">Загружается отчёт</string>
     
+    <!-- Сообщение, что невозможно получить данные -->
+    <string name="data_not_available_title">Невозможно получить данные</string>
+    <string name="data_not_available_message">Проверьте, работает ли сервер, и активно ли сетевое соединение</string>
+    <string name="data_not_available_ok">Ясно</string>
+    
     <!-- Для отчётов -->
     <string name="report_type_if">трафик</string>
     <string name="report_type_load">загрузка</string>

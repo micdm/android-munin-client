@@ -25,6 +25,18 @@ public class ReportLoader {
     }
     
     /**
+     * Выполняется, когда загрузится отчет.
+     */
+    protected void _onReportLoaded(Server server, Node node, Report report) {
+        if (report == null) {
+            EventDispatcher.dispatch(new Event(Event.Type.REPORT_NOT_AVAILABLE, node));
+        } else {
+            node.addReport(report);
+            EventDispatcher.dispatch(new Event(Event.Type.REPORT_AVAILABLE, node, report));
+        }
+    }
+    
+    /**
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
@@ -32,10 +44,7 @@ public class ReportLoader {
             @Override
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
-                Node node = (Node)extra[1];
-                Report report = (Report)extra[2];
-                node.addReport(report);
-                EventDispatcher.dispatch(new Event(Event.Type.REPORT_AVAILABLE, node, report));
+                _onReportLoaded((Server)extra[0], (Node)extra[1], (Report)extra[2]);
             }
         });
     }

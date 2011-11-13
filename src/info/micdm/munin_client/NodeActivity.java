@@ -10,6 +10,7 @@ import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
 import info.micdm.munin_client.graph.GraphView;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -176,6 +177,23 @@ public class NodeActivity extends Activity {
     }
     
     /**
+     * Выполняется, если отчет недоступен.
+     */
+    protected void _onReportNotAvailable(Node node) {
+        if (_node.equals(node)) {
+            if (_dialog != null) {
+                _dialog.dismiss();
+                _dialog = null;
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.data_not_available_title);
+            builder.setMessage(R.string.data_not_available_message);
+            builder.setPositiveButton(R.string.data_not_available_ok, null);
+            builder.show();
+        }
+    }
+    
+    /**
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
@@ -184,6 +202,13 @@ public class NodeActivity extends Activity {
             public void notify(Event event) {
                 Object[] extra = event.getExtra();
                 _onReportAvailable((Node)extra[0], (Report)extra[1]);
+            }
+        });
+        EventDispatcher.addListener(Event.Type.REPORT_NOT_AVAILABLE, new EventListener(this) {
+            @Override
+            public void notify(Event event) {
+                Object[] extra = event.getExtra();
+                _onReportNotAvailable((Node)extra[0]);
             }
         });
     }

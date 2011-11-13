@@ -70,14 +70,16 @@ class NodeListParser {
     /**
      * Парсит данные, заполняет список нод.
      */
-    public void parse(ArrayList<Node> nodes, String data) {
+    public ArrayList<Node> parse(String data) throws RuntimeException {
         try {
-            _nodes = nodes;
+            _nodes = new ArrayList<Node>();
             RootElement nodesElement = new RootElement("nodes");
             _setupNodeElement(nodesElement.getChild("node"));
             Xml.parse(data, nodesElement.getContentHandler());
+            return _nodes;
         } catch (SAXException e) {
             Log.e(toString(), "can not parse data: " + e.toString());
+            throw new RuntimeException("can not parse data");
         }
     }
 }
@@ -111,10 +113,13 @@ public class DownloadNodeListTask extends DownloadTask<Void, Void, ArrayList<Nod
             return null;
         }
         NodeListParser parser = new NodeListParser();
-        ArrayList<Node> nodes = new ArrayList<Node>();
-        parser.parse(nodes, data);
-        Log.d(toString(), "parsed: " + nodes.toString());
-        return nodes;
+        try {
+            ArrayList<Node> nodes = parser.parse(data);
+            Log.d(toString(), "parsed: " + nodes.toString());
+            return nodes;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
     
     @Override

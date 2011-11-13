@@ -34,6 +34,11 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int data_not_available_message=0x7f04000c;
+        public static final int data_not_available_ok=0x7f04000d;
+        /**  Сообщение, что невозможно получить данные 
+         */
+        public static final int data_not_available_title=0x7f04000b;
         public static final int dialog_loading_nodes=0x7f040009;
         /**  Экран с отчётом 
          */
@@ -44,14 +49,14 @@ public final class R {
         /**  Экран со списком серверов 
          */
         public static final int no_servers_found=0x7f040001;
-        public static final int report_period_day=0x7f04000f;
-        public static final int report_period_hour=0x7f04000e;
-        public static final int report_title=0x7f040010;
+        public static final int report_period_day=0x7f040012;
+        public static final int report_period_hour=0x7f040011;
+        public static final int report_title=0x7f040013;
         /**  Для отчётов 
          */
-        public static final int report_type_if=0x7f04000b;
-        public static final int report_type_load=0x7f04000c;
-        public static final int report_type_users=0x7f04000d;
+        public static final int report_type_if=0x7f04000e;
+        public static final int report_type_load=0x7f04000f;
+        public static final int report_type_users=0x7f040010;
         /**  Пункты меню 
          */
         public static final int server_add=0x7f040003;
