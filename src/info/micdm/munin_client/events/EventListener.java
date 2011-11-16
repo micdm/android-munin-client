@@ -1,5 +1,7 @@
 package info.micdm.munin_client.events;
 
+import info.micdm.munin_client.events.types.Event;
+
 /**
  * Слушатель событий.
  * @author Mic, 2011

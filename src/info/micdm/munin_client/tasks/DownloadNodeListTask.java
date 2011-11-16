@@ -3,8 +3,9 @@ package info.micdm.munin_client.tasks;
 import info.micdm.munin_client.data.Node;
 import info.micdm.munin_client.data.Report;
 import info.micdm.munin_client.data.Server;
-import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
+import info.micdm.munin_client.events.types.NodeListLoadedEvent;
+import info.micdm.utils.Log;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,6 @@ import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
-import info.micdm.utils.Log;
 import android.util.Xml;
 
 /**
@@ -128,7 +128,7 @@ public class DownloadNodeListTask extends DownloadTask<Void, Void, ArrayList<Nod
     
     @Override
     protected void onPostExecute(ArrayList<Node> nodes) {
-        Event event = new Event(Event.Type.NODE_LIST_LOADED, _server, nodes);
-        EventDispatcher.dispatch(event);
+        NodeListLoadedEvent event = new NodeListLoadedEvent(_server, nodes);
+        EventDispatcher.INSTANCE.dispatch(event);
     }
 }

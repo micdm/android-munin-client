@@ -4,8 +4,9 @@ import info.micdm.munin_client.data.Node;
 import info.micdm.munin_client.data.Point;
 import info.micdm.munin_client.data.Report;
 import info.micdm.munin_client.data.Server;
-import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
+import info.micdm.munin_client.events.types.ReportLoadedEvent;
+import info.micdm.utils.Log;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -14,7 +15,6 @@ import android.sax.Element;
 import android.sax.ElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.RootElement;
-import info.micdm.utils.Log;
 import android.util.Xml;
 
 /**
@@ -168,7 +168,7 @@ public class DownloadReportTask extends DownloadTask<Void, Void, Report> {
     
     @Override
     protected void onPostExecute(Report report) {
-        Event event = new Event(Event.Type.REPORT_LOADED, _server, _node, report);
-        EventDispatcher.dispatch(event);
+        ReportLoadedEvent event = new ReportLoadedEvent(_server, _node, report);
+        EventDispatcher.INSTANCE.dispatch(event);
     }
 }

@@ -2,9 +2,12 @@ package info.micdm.munin_client.data.loaders;
 
 import info.micdm.munin_client.data.Node;
 import info.micdm.munin_client.data.Server;
-import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
+import info.micdm.munin_client.events.types.Event;
+import info.micdm.munin_client.events.types.NodeListAvailableEvent;
+import info.micdm.munin_client.events.types.NodeListLoadedEvent;
+import info.micdm.munin_client.events.types.NodeListNotAvailableEvent;
 import info.micdm.munin_client.tasks.DownloadNodeListTask;
 
 import java.util.ArrayList;
@@ -30,12 +33,12 @@ public class NodeListLoader {
      */
     protected void _onNodeListLoaded(Server server, ArrayList<Node> nodes) {
         if (nodes == null) {
-            EventDispatcher.dispatch(new Event(Event.Type.NODE_LIST_NOT_AVAILABLE, server));
+            EventDispatcher.INSTANCE.dispatch(new NodeListNotAvailableEvent(server));
         } else {
             for (Node node: nodes) {
                 server.addNode(node);
             }
-            EventDispatcher.dispatch(new Event(Event.Type.NODE_LIST_AVAILABLE, server));
+            EventDispatcher.INSTANCE.dispatch(new NodeListAvailableEvent(server));
         }
     }
     
@@ -43,11 +46,11 @@ public class NodeListLoader {
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
-        EventDispatcher.addListener(Event.Type.NODE_LIST_LOADED, new EventListener(this) {
+        EventDispatcher.INSTANCE.addListener(NodeListLoadedEvent.class, new EventListener(this) {
             @Override
             public void notify(Event event) {
-                Object[] extra = event.getExtra();
-                _onNodeListLoaded((Server)extra[0], (ArrayList<Node>)extra[1]);
+                NodeListLoadedEvent typed = (NodeListLoadedEvent)event;
+                _onNodeListLoaded(typed.getServer(), typed.getNodes());
             }
         });
     }
@@ -60,7 +63,7 @@ public class NodeListLoader {
             DownloadNodeListTask task = new DownloadNodeListTask(server);
             task.execute();
         } else {
-            EventDispatcher.dispatch(new Event(Event.Type.NODE_LIST_AVAILABLE, server));
+            EventDispatcher.INSTANCE.dispatch(new NodeListAvailableEvent(server));
         }
     }
 }

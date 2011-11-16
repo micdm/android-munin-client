@@ -5,9 +5,11 @@ import info.micdm.munin_client.data.Report;
 import info.micdm.munin_client.data.Server;
 import info.micdm.munin_client.data.ServerList;
 import info.micdm.munin_client.data.loaders.ReportLoader;
-import info.micdm.munin_client.events.Event;
 import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.EventListener;
+import info.micdm.munin_client.events.types.Event;
+import info.micdm.munin_client.events.types.ReportAvailableEvent;
+import info.micdm.munin_client.events.types.ReportNotAvailableEvent;
 import info.micdm.munin_client.graph.GraphView;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -197,18 +199,18 @@ public class NodeActivity extends Activity {
      * Добавляет слушатели событий.
      */
     protected void _addListeners() {
-        EventDispatcher.addListener(Event.Type.REPORT_AVAILABLE, new EventListener(this) {
+        EventDispatcher.INSTANCE.addListener(ReportAvailableEvent.class, new EventListener(this) {
             @Override
             public void notify(Event event) {
-                Object[] extra = event.getExtra();
-                _onReportAvailable((Node)extra[0], (Report)extra[1]);
+                ReportAvailableEvent typed = (ReportAvailableEvent)event;
+                _onReportAvailable(typed.getNode(), typed.getReport());
             }
         });
-        EventDispatcher.addListener(Event.Type.REPORT_NOT_AVAILABLE, new EventListener(this) {
+        EventDispatcher.INSTANCE.addListener(ReportNotAvailableEvent.class, new EventListener(this) {
             @Override
             public void notify(Event event) {
-                Object[] extra = event.getExtra();
-                _onReportNotAvailable((Node)extra[0]);
+                ReportNotAvailableEvent typed = (ReportNotAvailableEvent)event;
+                _onReportNotAvailable(typed.getNode());
             }
         });
     }
@@ -224,7 +226,7 @@ public class NodeActivity extends Activity {
      * Удаляет все слушатели событий.
      */
     protected void _removeListeners() {
-        EventDispatcher.removeAllListeners(this);
+        EventDispatcher.INSTANCE.removeAllListeners(this);
     }
     
     @Override

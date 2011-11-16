@@ -1,5 +1,7 @@
 package info.micdm.munin_client.tasks;
 
+import info.micdm.utils.Log;
+
 import java.io.IOException;
 
 import org.apache.http.client.methods.HttpGet;
@@ -8,7 +10,6 @@ import org.apache.http.util.EntityUtils;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
-import info.micdm.utils.Log;
 
 /**
  * Абстрактный загрузчик данных с веб-сервера.

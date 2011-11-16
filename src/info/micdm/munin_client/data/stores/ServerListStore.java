@@ -3,6 +3,7 @@ package info.micdm.munin_client.data.stores;
 import info.micdm.munin_client.CustomApplication;
 import info.micdm.munin_client.data.Server;
 import info.micdm.munin_client.data.ServerList;
+import info.micdm.utils.Log;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +22,6 @@ import android.content.Context;
 import android.sax.Element;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
-import info.micdm.utils.Log;
 import android.util.Xml;
 
 /**
