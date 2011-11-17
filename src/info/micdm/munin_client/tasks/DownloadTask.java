@@ -84,8 +84,8 @@ public abstract class DownloadTask<Params, Progress, Result> extends AsyncTask<P
             AndroidHttpClient client = AndroidHttpClient.newInstance("Android Munin Client");
             HttpGet request = _getRequest(uri);
             BasicHttpResponse response = (BasicHttpResponse)client.execute(request);
-            client.close();
             String body = EntityUtils.toString(response.getEntity(), "utf8");
+            client.close();
             if (Log.isEnabled) {
                 Log.debug("downloaded: " + body.length());
             }
