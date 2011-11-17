@@ -7,6 +7,7 @@ import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.types.NodeListLoadedEvent;
 import info.micdm.utils.Log;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
@@ -104,8 +105,8 @@ public class DownloadNodeListTask extends DownloadTask<Void, Void, ArrayList<Nod
     }
     
     @Override
-    protected String _getUri() {
-        return _server.getUri() + "/nodes/";
+    protected URI _getUri() {
+        return URI.create(_server.getUri() + "/nodes/");
     }
 
     @Override

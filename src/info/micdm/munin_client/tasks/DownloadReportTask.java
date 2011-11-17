@@ -8,6 +8,8 @@ import info.micdm.munin_client.events.EventDispatcher;
 import info.micdm.munin_client.events.types.ReportLoadedEvent;
 import info.micdm.utils.Log;
 
+import java.net.URI;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -143,8 +145,8 @@ public class DownloadReportTask extends DownloadTask<Void, Void, Report> {
     }
     
     @Override
-    protected String _getUri() {
-        return _server.getUri() + "/report/" + _node.getName() + "/" + _type + "/" + _period + "/";
+    protected URI _getUri() {
+        return URI.create(_server.getUri() + "/report/" + _node.getName() + "/" + _type + "/" + _period + "/");
     }
 
     @Override
