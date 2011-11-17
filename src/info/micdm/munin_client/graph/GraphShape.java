@@ -268,20 +268,10 @@ public class GraphShape extends Shape {
         }
     }
     
-    /**
-     * Рисует заголовок к отчету.
-     */
-    protected void _drawTitle(Canvas canvas) {
-        String text = _report.getTitle();
-        LabelShape shape = new LabelShape(text, 0, 0, getWidth());
-        shape.draw(canvas, null);
-    }
-    
     @Override
     public void draw(Canvas canvas, Paint paint) {
         _calculateCoords();
         _drawGraph(canvas);
         _drawLabels(canvas);
-        _drawTitle(canvas);
     }
 }

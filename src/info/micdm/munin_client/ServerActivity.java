@@ -88,6 +88,7 @@ public class ServerActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server);
+        setTitle(R.string.server_activity_title);
         _setServer(getIntent().getExtras()); 
         _listenToSelectNode();
     }

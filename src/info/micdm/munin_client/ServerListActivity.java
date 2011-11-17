@@ -179,6 +179,7 @@ public class ServerListActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_list);
+        setTitle(R.string.server_list_activity_title);
         registerForContextMenu(getListView());
         _listenToSelectServer();
     }

@@ -160,6 +160,7 @@ public class NodeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.node);
+        setTitle(R.string.node_activity_title);
         _setServerAndNode(getIntent().getExtras());
         _listenToFling();
     }
@@ -169,6 +170,7 @@ public class NodeActivity extends Activity {
      */
     protected void _onReportAvailable(Node node, Report report) {
         if (_node.equals(node)) {
+            setTitle(report.getTitle());
             GraphView view = (GraphView)findViewById(R.id.graph);
             view.setReport(report);
             if (_dialog != null) {

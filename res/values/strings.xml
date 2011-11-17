@@ -4,6 +4,7 @@
     <string name="app_name">Клиент Munin</string>
     
     <!-- Экран со списком серверов -->
+    <string name="server_list_activity_title">Список серверов</string>
     <string name="no_servers_found">Вы ещё не добавили серверы.</string>
     <string name="server_uri">http://username:password@example.org:80/munin-export/</string>
     
@@ -15,10 +16,12 @@
     <string name="server_cancel">Отмена</string>
     
     <!-- Экран со списком нод -->
+    <string name="server_activity_title">Список доступных нод</string>
     <string name="no_nodes_found">Ноды не найдены на указанном сервере.</string>
     <string name="dialog_loading_nodes">Загружается список нод...</string>
     
     <!-- Экран с отчётом -->
+    <string name="node_activity_title">Просмотр отчета</string>
     <string name="dialog_loading_report">Загружается отчёт...</string>
     
     <!-- Сообщение, что невозможно получить данные -->
@@ -27,11 +30,11 @@
     <string name="data_not_available_ok">Ясно</string>
     
     <!-- Для отчётов -->
-    <string name="report_type_if">трафик</string>
-    <string name="report_type_load">загрузка</string>
-    <string name="report_type_users">пользователи</string>
+    <string name="report_title">%1$s за %2$s</string>
+    <string name="report_type_if">Трафик</string>
+    <string name="report_type_load">Загрузка</string>
+    <string name="report_type_users">Пользователи</string>
     <string name="report_period_hour">час</string>
     <string name="report_period_day">день</string>
-    <string name="report_title">%1$s за %2$s</string>
 
 </resources>
